@@ -1,1 +1,19 @@
 @import "tailwindcss";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+    
+@theme {
+    --very-dark-brown: #2D2525;
+    --primary-purple: #A6728A
+}
+
+.wrapper {
+    @apply container mx-auto px-4;
+}
+
+h6 {
+    color: var(--primary-purple)
+}
