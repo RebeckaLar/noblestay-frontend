@@ -12,7 +12,7 @@ const RootLayout = () => {
 
         {/* Footer */}
         <div className="border-(--very-dark-brown) border-t h-30 flex">
-          <div className="wrapper">
+          <div className="container mx-auto px-4">
             <a href="/">
               <img src={logo_footer} className="logo" alt="Noble Stay logo" />
             </a>
@@ -20,7 +20,7 @@ const RootLayout = () => {
           <div>
             <p>&copy; NobleStayInc {new Date().getFullYear()} </p>
           </div>
-          <div className="wrapper">
+          <div className="container mx-auto px-4">
             <h6 className="">Contact us</h6>
           </div>
         </div>

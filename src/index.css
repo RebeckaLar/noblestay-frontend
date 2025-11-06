@@ -1,19 +1,49 @@
 @import "tailwindcss";
-* {
+
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-    
-@theme {
+     */
+:root {
     --very-dark-brown: #2D2525;
-    --primary-purple: #A6728A
+    --primary-purple: #A6728A;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 66px;
 }
 
-.wrapper {
-    @apply container mx-auto px-4;
+h2, h3, h4, h5, h6 {
+    color: var(--primary-purple);
 }
 
-h6 {
-    color: var(--primary-purple)
+.logo-large {
+    display: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media screen and (min-width: 1024px){
+
+    .logo-large {
+        display: block;
+    }
+
+    .hamburger, .logo-small {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing-2xl);
+    }
+
 }
