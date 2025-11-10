@@ -5,13 +5,18 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import RootLayout from './layouts/RootLayout'
 import HomePage from './pages/HomePage'
 import StayDetailsPage from './pages/StayDetailsPage'
+import { StayProvider } from './contexts/StayContext'
 // import App from './App.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/', 
     element: 
-    <RootLayout />,
+    <StayProvider>
+      <RootLayout />
+    </StayProvider>
+
+    ,
     children: [
       { 
         index: true, 
