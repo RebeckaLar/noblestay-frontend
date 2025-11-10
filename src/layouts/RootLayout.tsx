@@ -4,7 +4,8 @@ import Navbar from "../components/Navbar"
 
 const RootLayout = () => {
   return (
-    <div className="min-h-svh text-(--very-dark-brown) grid grid-rows-[auto_1fr_auto]">
+    <div className="min-h-svh text-(--very-dark-brown)">
+    {/* <div className="min-h-svh text-(--very-dark-brown) grid grid-rows-[auto_1fr_auto]"> */}
         <Navbar />
         <main>
           <Outlet />
