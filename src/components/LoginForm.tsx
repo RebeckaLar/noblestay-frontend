@@ -1,0 +1,85 @@
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useUser } from '../contexts/UserContext'
+import { useEffect, useState } from 'react'
+
+type LoginFormProps = {
+  onSuccess: () => void
+}
+
+function LoginForm({ onSuccess }: LoginFormProps) {
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<User>({ defaultValues: { email: "", password: ""} })
+
+  const { users, actions } = useUser()
+
+  const [formError, setFormError] = useState<string>("")
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (isSubmitted) {
+      reset({ email: "", password: "" })
+    }
+    setIsSubmitted(false)
+    setFormError("")
+
+  }, [isSubmitted, reset])
+
+  const onSubmit: SubmitHandler<User> = (data: User) => {
+    const _user: User = {  id: data.id, email: data.email.trim(), password: data.password.trim() }
+    const existingUser = users.find((u) => u.email == _user.email)
+    console.log(data.id)
+
+    if (!existingUser) {
+      setFormError("Användaren kunde inte hittas")
+    } else {
+      if (existingUser.password == _user.password) {
+        actions.setUser(_user)
+        setIsSubmitted(true)
+        onSuccess()
+      } else {
+        setFormError("Fel lösenord")
+        return
+      }
+    }
+
+    return
+  }
+
+  return (
+    <div className="w-full max-w-xs">
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
+
+        <div className="mb-4">
+          <label className="block mb-2" >Användarnamn: </label>
+          <input className='border' {...register("email", { required: true })} />
+          {errors.email && errors.email.type === "required" && <p className="text-red-500 text-xs italic mt-1">Vänligen ange ett användarnamn</p>}
+        </div>
+
+        <div className="mb-6">
+          <label className="block mb-2">Lösenord: </label>
+          <input type='password' className='border' id='password' {...register("password", { required: true })} />
+          {errors.password && errors.password.type === "required" && <p className="text-red-500 text-xs italic mt-1">Vänligen ange ett lösenord</p>}
+        </div>
+
+        <div>
+          {formError && <p className="text-red-500 text-sm italic mb-3">{formError}</p>}
+        </div>
+
+        <div>
+          <input
+            type="submit"
+            value="Logga in"
+            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+          />
+        </div>
+      </form>
+    </div>
+  )
+}
+
+export default LoginForm

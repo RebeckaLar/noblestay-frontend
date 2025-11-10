@@ -63,12 +63,13 @@ h6 {
     font-size: calc(var(--heading-6) / 1.1);
 }
 
-p {
+p, button {
     font-family: Poppins, Arial, Helvetica, sans-serif;
 }
 
 .paragraph {
     font-size: calc(var(--paragraph) / 1.15 );
+    font-weight: 500;
 }
 
 .body-small {
@@ -80,8 +81,21 @@ p {
     color: var(--grey);
 }
 
+.primary-btn {
+    background-color: var(--primary-purple);
+    color: white;
+    padding-block: 1rem;
+    padding-inline: 3rem;
+    border-radius: 3rem;
+}
+
 .logo-large {
     display: none;
+}
+
+.hero {
+    background-image: url("./src/assets/rasmus-andersen-zUbbZ4BrstU-unsplash.jpg");
+    background-size: cover;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {

@@ -24,7 +24,8 @@ type Booking = {
 }
 
 type User = {
-    name: string;
+    // guestName: string;
     email: string;
-    password: string; //never save in plain text! encryption required
+    password: string; //never save in plain text! encryption required¨
+    id: number,
 }

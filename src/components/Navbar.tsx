@@ -5,7 +5,7 @@ import { IoMenu } from "react-icons/io5";
 
 const Navbar = () => {
   return (
-        <div className="shadow-sm ">
+        <div className="shadow-sm">
             <nav className='container mx-auto px-4 flex flex-row justify-between items-center h-(--spacing-3xl)'>
                 <div>
                     <Link to="/" className='logo-small'>
