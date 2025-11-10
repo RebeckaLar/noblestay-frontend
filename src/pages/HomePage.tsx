@@ -1,11 +1,37 @@
 import { useState } from "react"
 import { dummyStays } from "../data/stays"
+import HorizontalList from "../components/HorizontalList"
+import StayDetailsPage from "./StayDetailsPage"
+import { Navigate } from "react-router"
+import { useStay } from "../contexts/StayContext"
+
 
 const HomePage = () => {
-
-
   // Use local dummy data instead of fetching from API
-  const [stays, setStays] = useState(dummyStays)
+  // const [stays, setStays] = useState(dummyStays)
+    const [selectedStay, setselectedStay] = useState<Stay | null>(null)
+    const { actions } = useStay()
+    // const id = actions.getStayByID(Stay)
+
+  //   if (selectedStay) {
+
+  //   return (
+  //     <div className='container mx-auto px-4 pt-20 lg:max-w-6xl'>
+  //       <button onClick={() => setselectedStay(null)} className='flex gap-2 items-center mb-3'>
+  //         {/* <FaArrowLeft /> */}
+  //         <p>Go back to listings</p>
+  //       </button>
+  //       <StayDetailsPage stay={selectedStay} />
+  //     </div>
+  //   )
+  // }
+  
+  if(selectedStay) {
+    console.log(selectedStay.title)
+    console.log(selectedStay.id)
+
+    return <Navigate to={`stays/${selectedStay.id}`}/>
+  }
 
   return (
     <div className="">
@@ -32,23 +58,7 @@ const HomePage = () => {
       </div>
       
       {/* LIST OF STAYS */}
-      <div className="mt-6">
-        <h5 className="m-3">Scandinavia</h5>
-        <div className="overflow-x-auto overflow-y-hidden space-y-10 flex gap-(--spacing-xs)">
-          {stays.map((s, i) => (
-            <div key={i} className="ml-3 shadow-md rounded-xl h-full pb-6">
-              <div className="bg-gray-300 rounded-t-xl w-40 h-28"></div>
-              <div className="lower-half p-2">
-                <p className="paragraph">{s.title}</p>
-                <div className="flex flex-col text-sm">
-                  <p className="caption">{s.location}</p>
-                  <p className="body-small">{String(s.price)} kr / night</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <HorizontalList onStayClick={setselectedStay} />
     </div>
   )
 }

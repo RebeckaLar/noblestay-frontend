@@ -1,5 +1,6 @@
 export const dummyStays: Stay[] = [
     {
+        id: 1111,
         title: "Landskrona fortress",
         description: "Fint slott med havsutsikt och nära till gym",
         rules: "Check-in från 15:00",
@@ -12,6 +13,7 @@ export const dummyStays: Stay[] = [
         price: 899,
     },
     {
+        id: 2222,
         title: "Örebro slott",
         description: "Fint slott med havsutsikt och nära till gym",
         rules: "Check-in från 15:00",
@@ -24,10 +26,11 @@ export const dummyStays: Stay[] = [
         price: 1299,
     },
     {
+        id: 3333,
         title: "Kalmar slott",
         description: "Fint slott med havsutsikt och nära till gym",
         rules: "Check-in från 15:00",
-        owner: { type: 2222, ref: 'User', required: true },
+        owner: { type: 4444, ref: 'User', required: true },
         location: "Örebro, Sweden",
         bookings: [{ type: 5555, ref: 'Booking'}],
         guestType: "Adult",

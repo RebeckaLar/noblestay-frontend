@@ -1,4 +1,4 @@
-type LSKey = "@forum/users" | "@forum/currentUser" | "@forum/threads" | "@forum/comments" | "@forum/tags";
+type LSKey = "@stays/users" | "@stays/currentUser" | "@stays/stays" | "@stays/bookings" | "@stays/tags";
 
 class LocalStorageService {
   static setItem<T>(key: LSKey, value: T): void {

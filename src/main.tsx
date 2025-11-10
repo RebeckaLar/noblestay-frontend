@@ -4,14 +4,23 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import RootLayout from './layouts/RootLayout'
 import HomePage from './pages/HomePage'
+import StayDetailsPage from './pages/StayDetailsPage'
 // import App from './App.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/', 
-    element: <RootLayout />,
+    element: 
+    <RootLayout />,
     children: [
-      { index: true, element: <HomePage /> }
+      { 
+        index: true, 
+        element: <HomePage /> 
+      },
+      {
+        path: 'stays/:id',
+        element: <StayDetailsPage />,
+      }
     ]
     //allt i children kmr renderas ut i outlet i layouten
   }

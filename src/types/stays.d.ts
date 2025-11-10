@@ -1,5 +1,6 @@
 
 type Stay = {
+    id: number,
     title: String; 
     description: String;
     rules: String;
