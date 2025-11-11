@@ -7,9 +7,9 @@ type Stay = {
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
     location: String;
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}];
-    guestType: String;
+    guestType: GuestCategory;
     numberOfGuests: Number;
-    room: String;
+    room: Room;
     price: Number;
     availableEvent?: String;
 }
@@ -19,8 +19,8 @@ type Booking = {
     bookedStay: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
     checkInDate: Number;
     checkOutDate: Number;
-    room: String;
-    guestType: String;
+    room: Room;
+    guestType: GuestCategory;
     numberOfGuests: Number;
 }
 
@@ -28,5 +28,16 @@ type User = {
     // guestName: string;
     email: string;
     password: string; //never save in plain text! encryption required¨
-    id: number,
+    uid: number,
 }
+
+type GuestCategory =  "Adult" | "Children" | "Pets"
+
+type Room = {
+    rid: Number,
+    title: String,
+    roomCategory: "Standard Castle Room" | "Luxury Ruite" | "Unique Tower Room"
+    description: String,
+    price: Number
+}
+

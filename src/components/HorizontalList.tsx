@@ -21,7 +21,7 @@ const navigate = useNavigate()
               <div className="lower-half p-2">
                 <p className="paragraph">{s.title}</p>
                 <div className="flex flex-col text-sm">
-                  <p className="caption">{s.location}</p>
+                  <p className="caption text-(--grey)">{s.location}</p>
                   <p className="body-small">{String(s.price)} kr / night</p>
                 </div>
               </div>

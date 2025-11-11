@@ -6,6 +6,7 @@ import RootLayout from './layouts/RootLayout'
 import HomePage from './pages/HomePage'
 import StayDetailsPage from './pages/StayDetailsPage'
 import { StayProvider } from './contexts/StayContext'
+import { RoomProvider } from './contexts/RoomContext'
 // import App from './App.tsx'
 
 const router = createBrowserRouter([
@@ -13,7 +14,9 @@ const router = createBrowserRouter([
     path: '/', 
     element: 
     <StayProvider>
-      <RootLayout />
+      <RoomProvider>
+        <RootLayout />
+      </RoomProvider>
     </StayProvider>
 
     ,

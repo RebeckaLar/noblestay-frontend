@@ -1,6 +1,11 @@
 import { BiChevronLeft } from "react-icons/bi"
+import { BsShare } from "react-icons/bs";
 import { useStay } from "../contexts/StayContext"
 import { useParams, useNavigate } from "react-router-dom"
+import { CgChevronDown } from "react-icons/cg";
+import { RiStarSFill } from "react-icons/ri";
+import { Calendar } from "@/components/ui/calendar";
+import AddBooking from "@/components/AddBooking";
 
 const StayDetailsPage = () => {
   const { actions } = useStay();
@@ -29,15 +34,65 @@ const StayDetailsPage = () => {
          <p>Go back to listings</p>
        </button>
 
+{/* STAY DETAILS */}
+    <div className="container">
       <div className=" bg-gray-300 h-58 rounded-xl">Image</div>
       
       {/* CASTLE DESCRIPTION */}
-      <div>
-        <h5>{stay.title}</h5>
+      <div className="mt-4">
+        <div className="flex justify-between">
+          <h5>{stay.title}</h5>
+          <button className="caption flex items-center gap-1 shadow-md px-3 rounded-2xl"><BsShare /> Share</button>
+        </div>
+        <button className="caption mb-2 text-(--primary-purple) border border-(--primary-purple) rounded-xl px-2">Event available</button>
         <p>{stay.description}</p>
+        <button className="text-(--action) flex items-center">Expand <CgChevronDown /></button>
       </div>
 
+      {/* RULES */}
+      <p>{stay.rules}</p>
+
+      <hr className="solid text-(--grey)"></hr>
+
+      {/* OWNER */}
+      <div className="flex justify-between">
+        <div>
+          <h6>Meet the castle owner</h6>
+          <p className="body-small">Lorem iopsim dolor</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="rounded-full w-15 h-15 bg-gray-300"></div>
+          <div className="flex text-(--very-dark-brown)">
+            <RiStarSFill /> 
+            <RiStarSFill /> 
+            <RiStarSFill /> 
+            <RiStarSFill /> 
+            <RiStarSFill /> 
+          </div>
+        </div>
+      </div>
+
+      <hr className="solid text-(--grey)"></hr>
+
+      <h6>Location</h6>
+
+      <hr className="solid text-(--grey)"></hr>
+      
+      {/* SELECTIONS */}
+      <div>
+        {/* <h6>Select dates</h6> */}
+        {/* <Calendar className="w-full" /> */}
+        <AddBooking />
+      </div>
+
+      {/* <h6>Select how many guests</h6>
+      <div className="h-40 bg-gray-300"></div> */}
+
+      <h6>Select room</h6>
+
     </div>
+
+  </div>
   )
 }
 export default StayDetailsPage
