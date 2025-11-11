@@ -31,17 +31,17 @@ function UserProvider ({ children }: PropsWithChildren) {
     }, [])
     
     const _getUsers = () => {
-        const _users: User[] = LocalStorageService.getItem('@forum/users', [])
+        const _users: User[] = LocalStorageService.getItem('@stays/users', [])
         setUsers(_users)
     }
 
     const _setUsers = (_users: User[]) => {
-        LocalStorageService.setItem('@forum/users', _users)
+        LocalStorageService.setItem('@stays/users', _users)
         setUsers(_users)
     }
 
     const _getUser = () => {
-        const _user: User | null = LocalStorageService.getItem('@forum/currentUser', defaultState.currentUser)
+        const _user: User | null = LocalStorageService.getItem('@stays/currentUser', defaultState.currentUser)
         setUser(_user)
     }
 
@@ -53,7 +53,7 @@ function UserProvider ({ children }: PropsWithChildren) {
     }
 
     const setUser = (user: User | null) => {
-        LocalStorageService.setItem('@forum/currentUser', user)
+        LocalStorageService.setItem('@stays/currentUser', user)
         setCurrentUser(user)
     }
 
