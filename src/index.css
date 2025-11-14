@@ -34,8 +34,8 @@
     --heading-6: 20px;
 
     --paragraph: 16px;
-    --body-small: 13px;
-    --caption: 10px;
+    --body-small: 14px;
+    --caption: 12px;
     
     --radius: 0.625rem;
     --background: oklch(1 0 0);
@@ -101,7 +101,7 @@ h6 {
     font-size: calc(var(--heading-6) / 1.1);
 }
 
-p, button {
+p, button, .paragraph {
     font-family: Poppins, Arial, Helvetica, sans-serif;
 }
 
@@ -121,6 +121,14 @@ p, button {
 .primary-btn {
     background-color: var(--primary-purple);
     color: white;
+    padding-block: 1rem;
+    padding-inline: 3rem;
+    border-radius: 3rem;
+}
+
+.action-btn {
+    background-color: var(--action);
+    color: var(--very-dark-brown);
     padding-block: 1rem;
     padding-inline: 3rem;
     border-radius: 3rem;

@@ -4,8 +4,8 @@ import { useStay } from "../contexts/StayContext"
 import { useParams, useNavigate } from "react-router-dom"
 import { CgChevronDown } from "react-icons/cg";
 import { RiStarSFill } from "react-icons/ri";
-import { Calendar } from "@/components/ui/calendar";
 import AddBooking from "@/components/AddBooking";
+import { IoLocationOutline } from "react-icons/io5";
 
 const StayDetailsPage = () => {
   const { actions } = useStay();
@@ -44,6 +44,10 @@ const StayDetailsPage = () => {
           <h5>{stay.title}</h5>
           <button className="caption flex items-center gap-1 shadow-md px-3 rounded-2xl"><BsShare /> Share</button>
         </div>
+        <div className="flex gap-1">
+          <IoLocationOutline />
+          <p className="caption">{stay.location}</p>
+        </div>
         <button className="caption mb-2 text-(--primary-purple) border border-(--primary-purple) rounded-xl px-2">Event available</button>
         <p>{stay.description}</p>
         <button className="text-(--action) flex items-center">Expand <CgChevronDown /></button>
@@ -80,16 +84,8 @@ const StayDetailsPage = () => {
       
       {/* SELECTIONS */}
       <div>
-        {/* <h6>Select dates</h6> */}
-        {/* <Calendar className="w-full" /> */}
         <AddBooking />
       </div>
-
-      {/* <h6>Select how many guests</h6>
-      <div className="h-40 bg-gray-300"></div> */}
-
-      <h6>Select room</h6>
-
     </div>
 
   </div>

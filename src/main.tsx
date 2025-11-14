@@ -7,6 +7,9 @@ import HomePage from './pages/HomePage'
 import StayDetailsPage from './pages/StayDetailsPage'
 import { StayProvider } from './contexts/StayContext'
 import { RoomProvider } from './contexts/RoomContext'
+import { BookingProvider } from './contexts/BookingContext'
+import BookingReview from './components/BookingReview'
+import PrivateRoute from './components/PrivateRoute'
 // import App from './App.tsx'
 
 const router = createBrowserRouter([
@@ -15,7 +18,9 @@ const router = createBrowserRouter([
     element: 
     <StayProvider>
       <RoomProvider>
-        <RootLayout />
+        <BookingProvider>
+          <RootLayout />
+        </BookingProvider>
       </RoomProvider>
     </StayProvider>
 
@@ -28,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'stays/:id',
         element: <StayDetailsPage />,
+      },
+      {
+        path: 'booking-review',
+        element: <BookingReview />
       }
     ]
     //allt i children kmr renderas ut i outlet i layouten
