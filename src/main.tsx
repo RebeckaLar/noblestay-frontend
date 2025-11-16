@@ -8,7 +8,7 @@ import StayDetailsPage from './pages/StayDetailsPage'
 import { StayProvider } from './contexts/StayContext'
 import { RoomProvider } from './contexts/RoomContext'
 import { BookingProvider } from './contexts/BookingContext'
-import BookingReview from './components/BookingReview'
+import BookingReview from './pages/BookingReviewPage'
 import PrivateRoute from './components/PrivateRoute'
 // import App from './App.tsx'
 

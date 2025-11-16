@@ -31,7 +31,7 @@ const StayDetailsPage = () => {
     <div className="container mx-auto px-4">
       <button onClick={() => navigate(-1)} className='flex gap-2 items-center mb-3'>
           <BiChevronLeft />
-         <p>Go back to listings</p>
+         <p>Go back</p>
        </button>
 
 {/* STAY DETAILS */}
@@ -61,7 +61,7 @@ const StayDetailsPage = () => {
       {/* OWNER */}
       <div className="flex justify-between">
         <div>
-          <h6>Meet the castle owner</h6>
+          <h6 className="h6-brown">Meet the castle owner</h6>
           <p className="body-small">Lorem iopsim dolor</p>
         </div>
         <div className="flex flex-col items-center">
@@ -75,10 +75,6 @@ const StayDetailsPage = () => {
           </div>
         </div>
       </div>
-
-      <hr className="solid text-(--grey)"></hr>
-
-      <h6>Location</h6>
 
       <hr className="solid text-(--grey)"></hr>
       

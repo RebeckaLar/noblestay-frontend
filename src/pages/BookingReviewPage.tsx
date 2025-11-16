@@ -2,12 +2,12 @@ import { useStay } from "@/contexts/StayContext";
 import { useRoom } from "@/contexts/RoomContext";
 import { useBooking } from "@/contexts/BookingContext";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import { BiChevronLeft } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
 import { CgArrowRight } from "react-icons/cg";
 
-function BookingReview() {
+function BookingReviewPage() {
   const navigate = useNavigate();
   const { actions } = useStay();
   const { actions: roomActions } = useRoom();
@@ -122,4 +122,4 @@ function BookingReview() {
     </>
   );
 }
-export default BookingReview
+export default BookingReviewPage

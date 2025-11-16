@@ -130,11 +130,22 @@ function AddBooking() {
       setLoading(false);
     }
   }
-
+  
+  // Pricing derivations
+  const selectedRid = form.watch('rid');
+  const selectedRoomData = room.find((r) => String(r.rid) === selectedRid);
+  const dateRange = form.watch('dateRange');
+  const from = dateRange?.from;
+  const to = dateRange?.to;
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const nights = from && to ? Math.max(1, Math.ceil((to.getTime() - from.getTime()) / msPerDay)) : 1;
+  const pricePerNight = selectedRoomData ? Number(selectedRoomData.price) : 0;
+  const totalPrice = pricePerNight * nights;
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col items-center">
+        
         
         {/*Debug info remove after testing */}
         <div style={{ background: '#f0f0f0', padding: '10px', fontSize: '12px' }}>
@@ -151,7 +162,7 @@ function AddBooking() {
           render={({ field }) => (
             <>
               <FormItem>
-                <FormLabel><h6>Select date</h6></FormLabel>
+                <FormLabel><h6 className="h6-brown">Select date</h6></FormLabel>
                 <Calendar
                   className="flex w-full items-center justify-center"
                   mode="range"
@@ -167,7 +178,7 @@ function AddBooking() {
 
         {/* SELECT GUESTS */} 
         <div className="flex w-full max-w-md flex-col gap-6">
-          <FormLabel><h6>Select guests</h6></FormLabel>
+          <FormLabel><h6 className="h6-brown">Select guests</h6></FormLabel>
           
           {/* Adults */}
           <FormField
@@ -320,7 +331,7 @@ function AddBooking() {
           name="rid"
           render={({ field }) => (
             <FormItem className="flex w-full max-w-md flex-col gap-6">
-              <FormLabel><h6>Select room</h6></FormLabel>
+              <FormLabel><h6 className="h6-brown">Select room</h6></FormLabel>
 
               <RadioGroup
                 value={field.value}
@@ -353,12 +364,40 @@ function AddBooking() {
             </FormItem>
           )} />
 
-        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
-        <button
-          className="primary-btn"
-          disabled={loading || submitted}
-          type="submit">{loading ? "Reserving..." : "Reserve"}
-        </button>
+
+      <div className="space-y-2 pb-6 w-[80%] flex gap-6 justify-between items-center">
+
+          {
+          errorMessage && 
+          <div className="p-3 rounded-lg bg-blue shadow-sm">
+            <p className="text-(--error) text-sm">{errorMessage}</p>
+            </div>
+          }
+
+        <div>
+          <p className="paragraph mb-1">Total:</p>
+          {selectedRoomData ? (
+            <div className="space-y-1">
+              {/* <p className="body-small">{pricePerNight} kr / night</p> */}
+              {/* <p className="caption text-(--grey)">x {nights} night{nights > 1 ? 's' : ''}</p> */}
+              {/* <hr className="solid my-1" /> */}
+              <p className="paragraph text-(--primary-purple) underline">{totalPrice} SEK</p>
+            </div>
+          ) : (
+            <p className="caption text-(--grey)">Select a room to see the price</p>
+          )}
+        </div>
+
+
+          <div className="flex flex-col text-center gap-2">
+            <p className="caption text-(--grey)">You will not be charged yet</p>
+            <button
+              className="primary-btn"
+              disabled={loading || submitted}
+              type="submit">{loading ? "Reserving..." : "Reserve"}
+            </button>
+        </div>
+        </div>
       </form>
     </Form>
   );
