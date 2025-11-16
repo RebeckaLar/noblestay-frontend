@@ -172,6 +172,7 @@ input:focus {
     align-items: normal;
 }
 
+/* Snappy Sliding Hamburger Menu from https://alvarotrigo.com/blog/hamburger-menu-css/ */
 #menu__toggle {
   opacity: 0;
 }
@@ -310,11 +311,6 @@ input:focus {
     .laptop-nav {
         display: flex;
     }
-
-    /* .nav-links {
-        display: flex;
-        flex-direction: row;
-    } */
 
     .hero {
         height: 630px;
