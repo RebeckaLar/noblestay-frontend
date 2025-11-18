@@ -10,9 +10,11 @@
 :root {
     --very-dark-brown: #2D2525;
     --primary-purple: #A6728A;
+    --primary-hover: #CD8BA9;
     --secondary: #FFFEFD;
     --grey: #AAAAAA;
     --action: #D4AF37;
+    --action-hover: #F3CF5A;
     --error: #A63C3C;
 
     --spacing-xs: 4px;
@@ -108,7 +110,8 @@ p, button, .paragraph, .nav-links {
 
 .paragraph {
     font-size: calc(var(--paragraph) / 1.15 );
-    font-weight: 500;
+    font-weight: 400;
+    color: var(--very-dark-brown)
 }
 
 .body-small {
@@ -132,11 +135,25 @@ input:focus {
 
 .primary-btn {
     background-color: var(--primary-purple);
-    color: white;
+    color: var(--secondary);
     padding-block: .5rem;
-    padding-inline: 2.9rem;
+    padding-inline: 2.8rem;
     border-radius: 2rem;
     font-weight: 300;
+}
+
+.secondary-btn {
+    border: 1px solid var(--primary-purple) ;
+    color: var(--color-primary);
+    padding-block: .5rem;
+    padding-inline: 2.8rem;
+    border-radius: 2rem;
+    font-weight: 300;    
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+    transition: 0.1s;
 }
 
 .action-btn {
@@ -145,6 +162,11 @@ input:focus {
     padding-block: 1rem;
     padding-inline: 3rem;
     border-radius: 3rem;
+}
+
+.action-btn:hover {
+    background-color: var(--action-hover);
+    transition: 0.1s;
 }
 
 .logo-large {
@@ -163,6 +185,11 @@ input:focus {
 .laptop-hero {
     display: none;
 }
+/* 
+.listing-cards > div {
+    width: 100%;
+    flex-shrink: 0;
+} */
 
 .copyright {
     display: none;
@@ -248,6 +275,11 @@ input:focus {
         width: 60%;
     }
 
+    .listing-cards {
+        /* display: grid; */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .copyright {
         display: flex;
     }
@@ -260,14 +292,14 @@ input:focus {
 
 /* LAPTOP */
 @media screen and (min-width: 1024px){
-
         
-    .primary-btn {
+    .primary-btn, .secondary-btn {
         padding-block: 1rem;
-        padding-inline: 3rem;
+        padding-inline: 2rem;
         border-radius: 3rem;
+        font-weight: 500;
     }
-    
+
     h1 {
     font-size: var(--heading-1);
     }
@@ -294,6 +326,7 @@ input:focus {
 
     .paragraph {
     font-size: var(--paragraph) ;
+    font-weight: 500;
     }
 
     .logo-large {
@@ -333,6 +366,19 @@ input:focus {
         height: 86px;
         width: 60rem;
         border-radius: 4rem;
+    }
+/* 
+    .listing-cards {
+        flex-direction: row;
+    } */
+
+    /* .listing-cards > div {
+        width: 100%;
+        flex-shrink: 0;
+    } */
+
+    .listing-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));        
     }
 
     .copyright {

@@ -5,7 +5,7 @@ import { MdOutlineLocationOn } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <div className='border-(--very-dark-brown) border-t'>
+    <div className='border-(--grey) border-t'>
         <footer className="container mx-auto p-4 flex flex-row gap-4 justify-between">
             <div className="footer-logo flex flex-col justify-center">
                 <a href="/" className='w-4/5'>
@@ -16,7 +16,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="contact-us flex flex-col">
+            <div className="contact-us flex flex-col px-4">
                 <h6 className="">Contact us</h6>
                 <div className="flex gap-1">
                     <p><MdOutlinePhoneInTalk /></p>

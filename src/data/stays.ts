@@ -4,7 +4,7 @@ export const dummyStays: Stay[] = [
     {
         id: 1111,
         title: "Landskrona fortress",
-        description: "Fint slott med havsutsikt och nära till gym. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac turpis tristique, dictum massa tempus, pellentesque arcu. Pellentesque arcu... ",
+        description: "Fint slott med havsutsikt och nära till gym. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac turpis tristique, dictum massa tempus, pellentesque arcu. Pellentesque arcu... am ac turpis tristique, dictum massa tempus, pellentesque arcu. Pellentesque arcu.. am ac turpis tristique, dictum massa tempus, pellentesque arcu. Pellentesque arcu..",
         rules: "Check-in från 15:00",
         owner: { type: 6345, ref: 'User', required: true },
         location: "Landskrona, Sweden",

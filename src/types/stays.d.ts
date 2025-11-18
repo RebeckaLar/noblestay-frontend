@@ -1,6 +1,6 @@
 
 type Stay = {
-    id: number,
+    id: Number,
     title: String; 
     description: String;
     rules: String;
@@ -26,9 +26,9 @@ type Booking = {
 
 type User = {
     // guestName: string;
-    email: string;
-    password: string; //never save in plain text! encryption required¨
-    uid: number,
+    email: String;
+    password: String; //never save in plain text! encryption required¨
+    uid: Number,
 }
 
 type GuestCategory =  "Adult" | "Children" | "Pets"

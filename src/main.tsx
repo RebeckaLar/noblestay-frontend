@@ -10,6 +10,8 @@ import { RoomProvider } from './contexts/RoomContext'
 import { BookingProvider } from './contexts/BookingContext'
 import BookingReview from './pages/BookingReviewPage'
 import PrivateRoute from './components/PrivateRoute'
+import StayListingsPage from './pages/StayListingsPage'
+import CreateStayPage from './pages/CreateStayPage'
 // import App from './App.tsx'
 
 const router = createBrowserRouter([
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: 'booking-review',
         element: <BookingReview />
+      },
+      {
+        path: 'stays',
+        element: <StayListingsPage />
+      },
+      {
+        path: 'create',
+        element: <CreateStayPage />
       }
     ]
     //allt i children kmr renderas ut i outlet i layouten

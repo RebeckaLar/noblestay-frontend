@@ -364,9 +364,6 @@ function AddBooking() {
             </FormItem>
           )} />
 
-
-      <div className="space-y-2 pb-6 w-[80%] flex gap-6 justify-between items-center">
-
           {
           errorMessage && 
           <div className="p-3 rounded-lg bg-blue shadow-sm">
@@ -374,29 +371,45 @@ function AddBooking() {
             </div>
           }
 
-        <div>
-          <p className="paragraph mb-1">Total:</p>
-          {selectedRoomData ? (
-            <div className="space-y-1">
-              {/* <p className="body-small">{pricePerNight} kr / night</p> */}
-              {/* <p className="caption text-(--grey)">x {nights} night{nights > 1 ? 's' : ''}</p> */}
-              {/* <hr className="solid my-1" /> */}
-              <p className="paragraph text-(--primary-purple) underline">{totalPrice} SEK</p>
-            </div>
-          ) : (
-            <p className="caption text-(--grey)">Select a room to see the price</p>
+
+      <div className="space-y-1 pb-6 w-full">
+        {/* <div> */}
+          {selectedRoomData ? ( //If user has selected room
+              <div className="flex flex-row gap-6 justify-around">
+                <div>
+                  <p className="paragraph mb-1">Total:</p>
+                  <p className="text-(--primary-purple) underline">{totalPrice} SEK</p>
+                </div>
+            
+                <div className="flex flex-col text-center gap-2">
+                  <p className="caption text-(--grey)">You will not be charged yet</p>
+                  <button
+                    className="primary-btn"
+                    disabled={loading || submitted}
+                    type="submit">{loading ? "Reserving..." : "Reserve"}
+                  </button>
+                </div>
+              </div>
+          ) : ( //Else if user has NOT selected room
+              <div className="flex flex-row gap-6 justify-around">
+                <div>
+                  <p className="paragraph mb-1">Total:</p>
+                  <p className="caption text-(--grey)">Select a room to see the price</p>
+                </div>
+
+                  <div className="flex flex-col text-center gap-2">
+                    <p className="caption text-(--grey)">You will not be charged yet</p>
+                    <button
+                      className="primary-btn"
+                      disabled={loading || submitted}
+                      type="submit">{loading ? "Reserving..." : "Reserve"}
+                    </button>
+                  </div>
+              </div>
           )}
-        </div>
+        {/* </div> */}
 
 
-          <div className="flex flex-col text-center gap-2">
-            <p className="caption text-(--grey)">You will not be charged yet</p>
-            <button
-              className="primary-btn"
-              disabled={loading || submitted}
-              type="submit">{loading ? "Reserving..." : "Reserve"}
-            </button>
-        </div>
         </div>
       </form>
     </Form>

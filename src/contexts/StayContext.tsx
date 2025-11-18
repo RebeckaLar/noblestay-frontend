@@ -65,7 +65,7 @@ function StayProvider({ children }: PropsWithChildren) {
 //     LocalStorageService.setItem<Stay[]>('@stays/stays', newStays)
 //   }
 
-  const getStayByID: typeof defaultState.actions.getStayByID = (stayId: number): Stay | undefined => {
+  const getStayByID: typeof defaultState.actions.getStayByID = (stayId: Stay['id']): Stay | undefined => {
     return stays.find(stay => stay.id === stayId)
   }
   const addBooking: typeof defaultState.actions.addBooking = (booking): void => {
