@@ -9,15 +9,16 @@ import { useUser } from '../contexts/UserContext';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-type CreateStayPageProps = {
-    onClose?: () => void;
+type CreateStayFormProps = {
+    defaultRules: Stay['rules'],
+    owner: Stay['owner']
 }
 
-// type CreateStayPageData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
-type CreateStayPageData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
+// type CreateStayFormData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
+type CreateStayFormData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
 
 
-export default function CreateStayPage({ onClose }: CreateStayPageProps) {
+export default function CreateStayForm({ defaultRules, owner }: CreateStayFormProps) {
     // const { stays, tags, actions } = useStay();
     const { stays, actions } = useStay();
     const { currentUser } = useUser();
@@ -33,7 +34,7 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
   handleSubmit,
   formState: { errors },
   watch
-} = useForm<CreateStayPageData>({
+} = useForm<CreateStayFormData>({
 //   defaultValues: {
 //     tags: [], // ✅ Empty array by default
 //   }
@@ -50,15 +51,15 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
 //   setValue("tags", newTags, { shouldValidate: true });
 // };
 
-    const onSubmit: SubmitHandler<CreateStayPageData> = (data) => {
-        console.log("hej")
+    const onSubmit: SubmitHandler<CreateStayFormData> = (data) => {
+        console.log("Create stay form submitted")
         // console.log(data.tags)
 
-        // if (!currentUser) {
-        //     return
-        // }
+        if (!currentUser) {
+            return
+        }
 
-        if (1+1===2) {
+        if (currentUser) {
             // if(data.category == "QNA") {
                 const newStay: Stay = {
                     // id: stays.length > 0 ? Math.max(...stays.map(t => t.id)) + 1 : 1,
@@ -74,8 +75,8 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
                     id: stays.length > 0 ? Math.max(...stays.map(t => Number(t.id))) + 1 : 1,
                         title: data.title,
                         description: data.description,
-                        rules: data.rules,
-                        owner: data.owner,
+                        rules: defaultRules,
+                        owner: {  userName: currentUser.userName, email: currentUser.email, password: currentUser.password, uid: currentUser.uid, },
                         // {
                         //     type: mongoose.Schema.Types.ObjectId;
                         //     ref: "User";
@@ -106,7 +107,7 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
                 {/* TITLE */}
                 <div className="mb-4">
-                    <label className="block mb-2" >Titel: </label>
+                    <label className="block mb-2" >Title: </label>
                     <input className='border' {...register("title", { required: true })} />
                     {errors.title && errors.title.type === "required" && <p className="text-red-600 text-sm italic mt-1">Please provide the castle title</p>}
                 </div>
@@ -115,6 +116,12 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
                     <label className="block mb-2" >Location: </label>
                     <input className='border' {...register("location", { required: true })} />
                     {errors.location && errors.location.type === "required" && <p className="text-red-600 text-sm italic mt-1">Please provide the location of the castle stay</p>}
+                </div>
+                {/* PRICE */}
+                <div className="mb-4">
+                    <label className="block mb-2" >Price (1 adult, standard room): </label>
+                    <input className='border' {...register("price", { required: true })} />
+                    {errors.price && errors.price.type === "required" && <p className="text-red-600 text-sm italic mt-1">Please provide price of the castle stay</p>}
                 </div>
 {/* 
                 <div className="mb-4">
@@ -162,6 +169,8 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
                     <textarea className='border w-full p-2 rounded' id='description' {...register("description", { required: true })} />
                     {errors.description && errors.description.type === "required" && <p className="text-red-600 text-sm italic">Please provide a description for the castle stay</p>}
                 </div>
+
+                <p className='paragraph'>Your email will be displayed for viewers of this listing</p>
 {/* 
                 <div className='mb-3'>
                     <label className="inline-flex items-center">
@@ -169,12 +178,13 @@ export default function CreateStayPage({ onClose }: CreateStayPageProps) {
                         <span className="ml-2">Låsa kommentarer?</span>
                     </label>
                 </div> */}
-                <button
+                                <button
                     type='submit'
                     className='bg-green-800 text-white p-3 rounded mt-5'
                 >
                     Publish stay
                 </button>
+
             </form >
         </div >
     )

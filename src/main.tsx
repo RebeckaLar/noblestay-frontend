@@ -11,13 +11,21 @@ import { BookingProvider } from './contexts/BookingContext'
 import BookingReview from './pages/BookingReviewPage'
 import PrivateRoute from './components/PrivateRoute'
 import StayListingsPage from './pages/StayListingsPage'
-import CreateStayPage from './pages/CreateStayPage'
+import CreateStayForm from './components/CreateStayForm'
 // import App from './App.tsx'
+
+import Modal from 'react-modal'
+import { UserProvider } from './contexts/UserContext'
+import Profile from './pages/Profile'
+import HostingPage from './pages/HostingsPage'
+
+Modal.setAppElement('#root')
 
 const router = createBrowserRouter([
   {
     path: '/', 
     element: 
+    <UserProvider>
     <StayProvider>
       <RoomProvider>
         <BookingProvider>
@@ -25,7 +33,7 @@ const router = createBrowserRouter([
         </BookingProvider>
       </RoomProvider>
     </StayProvider>
-
+    </UserProvider>
     ,
     children: [
       { 
@@ -45,8 +53,25 @@ const router = createBrowserRouter([
         element: <StayListingsPage />
       },
       {
-        path: 'create',
-        element: <CreateStayPage />
+        path: 'profile',
+        element: 
+        <PrivateRoute>
+          <Profile />
+        </PrivateRoute>
+      },
+      // {
+      //   path: 'create',
+      //   element: 
+      //   <PrivateRoute>
+      //     <CreateStayForm />
+      //   </PrivateRoute>
+      // },
+      {
+        path: 'hostings',
+        element: 
+        <PrivateRoute>
+          <HostingPage />
+        </PrivateRoute>
       }
     ]
     //allt i children kmr renderas ut i outlet i layouten

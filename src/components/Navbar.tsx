@@ -26,7 +26,6 @@ const Navbar = () => {
                         <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/stays">All castles</NavLink></li>
                         <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/bookings">My bookings</NavLink></li>
                         <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/register">Login / Sign Up</NavLink></li>
-                        <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/create">Create</NavLink></li>
                     </ul>
                 </div>
 

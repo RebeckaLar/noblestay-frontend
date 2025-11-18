@@ -3,8 +3,9 @@ type Stay = {
     id: Number,
     title: String; 
     description: String;
-    rules: String;
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
+    rules: "Check-in från 15:00";
+    // owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
+    owner: User;
     location: String;
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}];
     guestType: GuestCategory;
@@ -25,7 +26,7 @@ type Booking = {
 }
 
 type User = {
-    // guestName: string;
+    userName: String,
     email: String;
     password: String; //never save in plain text! encryption required¨
     uid: Number,

@@ -62,7 +62,8 @@ const StayDetailsPage = () => {
       <div className="flex justify-between">
         <div>
           <h6 className="h6-brown">Meet the castle owner</h6>
-          <p className="body-small">Lorem iopsim dolor</p>
+          <p className="body-small">{stay.owner.email}</p> 
+          {/* FIX */}
         </div>
         <div className="flex flex-col items-center">
           <div className="rounded-full w-15 h-15 bg-gray-300"></div>

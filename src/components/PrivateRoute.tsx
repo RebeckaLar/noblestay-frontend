@@ -1,4 +1,4 @@
-import { useUser } from "@/contexts/UserContext";
+import { useUser } from '@/contexts/UserContext';
 import type { PropsWithChildren } from "react";
 import { Navigate } from "react-router";
 
@@ -7,11 +7,11 @@ function PrivateRoute({ children }: PropsWithChildren) {
   
   if (!currentUser) {
     return <Navigate to="/" replace />;
+  } else {
+    return (
+        <> 
+          { children }
+       </>
+    )}
   }
-
-  return
-  <> 
-    { children }
-  </>
-}
 export default PrivateRoute;
