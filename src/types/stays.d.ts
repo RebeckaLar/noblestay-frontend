@@ -16,6 +16,7 @@ type Stay = {
 }
 
 type Booking = {
+    bid: Number,
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
     bookedStay: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
     checkInDate: Number;

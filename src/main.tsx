@@ -18,6 +18,7 @@ import Modal from 'react-modal'
 import { UserProvider } from './contexts/UserContext'
 import Profile from './pages/Profile'
 import HostingPage from './pages/HostingsPage'
+import BookingsPage from './pages/BookingsPage'
 
 Modal.setAppElement('#root')
 
@@ -66,6 +67,13 @@ const router = createBrowserRouter([
       //     <CreateStayForm />
       //   </PrivateRoute>
       // },
+      {
+        path: 'bookings',
+        element: 
+        <PrivateRoute>
+          <BookingsPage />
+        </PrivateRoute>
+      },
       {
         path: 'hostings',
         element: 

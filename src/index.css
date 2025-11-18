@@ -139,7 +139,7 @@ input:focus {
 
 .primary-btn {
     background-color: var(--primary-purple);
-    color: var(--secondary);
+    color: white;
     padding-block: .5rem;
     padding-inline: 2.8rem;
     border-radius: 2rem;

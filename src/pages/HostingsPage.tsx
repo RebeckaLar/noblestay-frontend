@@ -61,7 +61,7 @@ const HostingPage = () => {
         )}
       </div>
 
-      <CreateStayForm defaultRules={"Check-in från 15:00"} owner={currentUser} />
+      <CreateStayForm defaultRules={"Check-in från 15:00"} />
     </div>
   )
 }

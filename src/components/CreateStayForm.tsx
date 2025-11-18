@@ -11,14 +11,13 @@ import { useNavigate } from 'react-router';
 
 type CreateStayFormProps = {
     defaultRules: Stay['rules'],
-    owner: Stay['owner']
 }
 
 // type CreateStayFormData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
 type CreateStayFormData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
 
 
-export default function CreateStayForm({ defaultRules, owner }: CreateStayFormProps) {
+export default function CreateStayForm({ defaultRules }: CreateStayFormProps) {
     // const { stays, tags, actions } = useStay();
     const { stays, actions } = useStay();
     const { currentUser } = useUser();
@@ -180,7 +179,7 @@ export default function CreateStayForm({ defaultRules, owner }: CreateStayFormPr
                 </div> */}
                                 <button
                     type='submit'
-                    className='bg-green-800 text-white p-3 rounded mt-5'
+                    className='primary-btn'
                 >
                     Publish stay
                 </button>
