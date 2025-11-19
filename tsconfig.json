@@ -10,5 +10,13 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    ".vite",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }

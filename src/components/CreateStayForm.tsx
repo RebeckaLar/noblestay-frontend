@@ -71,7 +71,7 @@ export default function CreateStayForm({ defaultRules }: CreateStayFormProps) {
                     // commentsLocked: data.commentsLocked,
                     // isAnswered: false,
                     // commentAnswerId: 0,
-                    _id: stays.length > 0 ? Math.max(...stays.map(t => Number(t._id))) + 1 : 1,
+                    //_id: stays.length > 0 ? Math.max(...stays.map(t => Number(t._id))) + 1 : 1,
                         title: data.title,
                         description: data.description,
                         rules: defaultRules,
@@ -91,7 +91,8 @@ export default function CreateStayForm({ defaultRules }: CreateStayFormProps) {
                         numberOfGuests: data.numberOfGuests,
                         room: data.room,
                         price: data.price,
-                        availableEvent: data.availableEvent
+                        availableEvent: data.availableEvent,
+                        image: data.image,
                 }
                 actions.createStay(newStay);
                 navigate('/stays');
