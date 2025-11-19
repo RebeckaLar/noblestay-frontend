@@ -14,7 +14,7 @@ type CreateStayFormProps = {
 }
 
 // type CreateStayFormData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
-type CreateStayFormData = Omit<Stay, 'id' | 'creator' | 'creationDate'>
+type CreateStayFormData = Omit<Stay, '_id' | 'creator' | 'creationDate'>
 
 
 export default function CreateStayForm({ defaultRules }: CreateStayFormProps) {
@@ -71,7 +71,7 @@ export default function CreateStayForm({ defaultRules }: CreateStayFormProps) {
                     // commentsLocked: data.commentsLocked,
                     // isAnswered: false,
                     // commentAnswerId: 0,
-                    id: stays.length > 0 ? Math.max(...stays.map(t => Number(t.id))) + 1 : 1,
+                    _id: stays.length > 0 ? Math.max(...stays.map(t => Number(t._id))) + 1 : 1,
                         title: data.title,
                         description: data.description,
                         rules: defaultRules,

@@ -28,6 +28,13 @@ function UserProvider ({ children }: PropsWithChildren) {
     useEffect(() => {
       _getUsers()
       _getUser()
+      //FIX HÄMTA TOKEN FRÅN SESSION STORAGE
+    //   axios post reg user, sen hämta user token från res och sätter den i session storage
+
+    //   kolla finns MdToken, ananrs return
+
+    //   set token set use
+    //   funktionen kollar o mvlaid token
     }, [])
     
     const _getUsers = () => {
@@ -47,6 +54,10 @@ function UserProvider ({ children }: PropsWithChildren) {
 
     const createUser: typeof defaultState.actions.createUser = (user) => {
         console.log("User: ", user.userName)
+        //FIX AXIOS POST TOILL API USRES REGISTER, USER INFORMATION (REGISTERINUT)
+        // if res 201,från res hämta info tex i, då gör man dt från settoken resizeBy.data.usertoken,
+        // set currentusdser.
+        // sessionstorage.setitem(iwt, resizeBy.data.usertoken)
 
         const updatedUsers = [...users, user]
         _setUsers(updatedUsers)

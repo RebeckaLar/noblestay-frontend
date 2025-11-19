@@ -30,7 +30,7 @@ const HostingPage = () => {
         {userHostings.length > 0 ? (
           userHostings.map((s, i) => (
             <div key={i} 
-            onClick={() => navigate(`/stays/${s.id}`, {
+            onClick={() => navigate(`/stays/${s._id}`, {
                 state: { from: "/hostings" },
                 })} 
               className="shadow-md rounded-xl pb-6 flex flex-col cursor-pointer">

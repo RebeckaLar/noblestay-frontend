@@ -12,7 +12,8 @@ const StayDetailsPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const stayId = params.id ? Number(params.id) : undefined;
+  // Use Mongo-style _id passed in route as string
+  const stayId = params.id; // string | undefined
   const stay = stayId ? actions.getStayByID(stayId) : undefined;
 
   if (!stay) {
@@ -62,7 +63,7 @@ const StayDetailsPage = () => {
       <div className="flex justify-between">
         <div>
           <h6 className="h6-brown">Meet the castle owner</h6>
-          <p className="body-small">{stay.owner.email}</p> 
+          {/* <p className="body-small">{stay.owner.userName}</p> FIX */} 
           {/* FIX */}
         </div>
         <div className="flex flex-col items-center">

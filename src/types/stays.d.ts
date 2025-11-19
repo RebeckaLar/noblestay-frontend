@@ -1,6 +1,7 @@
 
 type Stay = {
-    id: Number,
+    // id: Number,
+    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
     title: String; 
     description: String;
     rules: "Check-in från 15:00";
@@ -13,6 +14,10 @@ type Stay = {
     room: Room;
     price: Number;
     availableEvent?: String;
+    // Source - https://stackoverflow.com/a
+    // Posted by Misaz
+    // Retrieved 2025-11-19, License - CC BY-SA 3.0
+    image?: HTMLImageElement
 }
 
 type Booking = {
