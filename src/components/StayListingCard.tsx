@@ -7,12 +7,13 @@ const StayListingCard = () => {
     const { stays, actions } = useStay()
     const { currentUser } = useUser()
     const navigate = useNavigate()
+    console.log(stays)
 
   return (
         <div className="listing-cards grid grid-cols-1 gap-10">
           {stays.map((s, i) => (
             <div key={i} 
-            onClick={() => navigate(`/stays/${s.id}`, {
+            onClick={() => navigate(`/stays/${s._id}`, {
                 state: { from: "/", flash: "Welcome to your dashboard!" },
                 })} 
               className="shadow-md rounded-xl pb-6 flex flex-col">

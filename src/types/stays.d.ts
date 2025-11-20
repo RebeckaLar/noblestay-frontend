@@ -1,11 +1,10 @@
 
 type Stay = {
     // id: Number,
-    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
+    _id: String;
     title: String; 
     description: String;
     rules: "Check-in från 15:00";
-    // owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
     owner: User;
     location: String;
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}];
@@ -13,7 +12,7 @@ type Stay = {
     numberOfGuests: Number;
     room: Room;
     price: Number;
-    availableEvent?: String;
+    availableEvent?: String,
     // Source - https://stackoverflow.com/a
     // Posted by Misaz
     // Retrieved 2025-11-19, License - CC BY-SA 3.0

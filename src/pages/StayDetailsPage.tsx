@@ -49,8 +49,11 @@ const StayDetailsPage = () => {
           <IoLocationOutline />
           <p className="caption">{stay.location}</p>
         </div>
-        <button className="caption mb-2 text-(--primary-purple) border border-(--primary-purple) rounded-xl px-2">Event available</button>
-        <p>{stay.description}</p>
+          { stay.availableEvent == 'true' &&
+
+          <button className="caption mb-2 text-(--primary-purple) border border-(--primary-purple) rounded-xl px-2">Event available</button>
+          }
+        <p className="paragraph mt-2">{stay.description}</p>
         <button className="text-(--action) flex items-center">Expand <CgChevronDown /></button>
       </div>
 

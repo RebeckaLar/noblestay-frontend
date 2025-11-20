@@ -49,6 +49,10 @@ const router = createBrowserRouter([
             path: '/profile',
             element: <Profile />
           },
+          {
+            path: '/hostings',
+            element: <HostingPage />
+          }
         ]
       },
       {
@@ -84,13 +88,6 @@ const router = createBrowserRouter([
           <BookingsPage />
         </PrivateRoute>
       },
-      {
-        path: 'hostings',
-        element: 
-        <PrivateRoute>
-          <HostingPage />
-        </PrivateRoute>
-      }
     ]
     //allt i children kmr renderas ut i outlet i layouten
   }
