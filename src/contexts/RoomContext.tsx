@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import LocalStorageService from "../utils/LocalStorageService";
 import { dummyRooms } from "../data/rooms";
-import { dummyBookings } from "../data/bookings";
 // import { preDefinedTags } from "../data/tag"; //NYTT
 
 type RoomState = {
@@ -50,8 +49,7 @@ function RoomProvider({ children }: PropsWithChildren) {
 
   const getRoomByID: typeof defaultState.actions.getRoomByID = (roomId: String): Room | undefined => {
     // return room.find(room => room._id === roomId)
-    // Match by Mongo _id as string; fallback to id if present in cached/local data
-    return room.find(r => String((r as any)._id) === String(roomId) || String((r as any).id) === String(roomId))
+    return room.find(r => String(r._id) === String(roomId))
   }
 //   const addBooking: typeof defaultState.actions.addBooking = (booking): void => {
 //     const newBookings = [...bookings, booking]

@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import LocalStorageService from "../utils/LocalStorageService";
-import { dummyBookings } from "../data/bookings";
 import api from "../api/axios";
 // import { preDefinedTags } from "../data/tag"; //NYTT
 
@@ -10,12 +9,10 @@ type StayState = {
 //   tags: StayTag[]; //NYTT
   actions: {
     createStay: (stay: Stay) => void;
-    // updateQNAStay: (threadIndex: number, updatedStay: QNAStay) => void;
     getStayByID: (stayId: string) => Stay | undefined;
     addBooking: (booking: Booking) => void;
+    getBookingByID: (bookingId: string) => Booking | undefined;
     // addTags: (tag: StayTag) => void; //NYTT
-    // isQNAAnswered: (stayId: Stay['id']) => boolean;
-    // toggleBookingsLock: (stayId: Stay['id']) => void;
   }
 };
 
@@ -25,12 +22,10 @@ const defaultState: StayState = {
 //   tags: [], //NYTT
   actions: {
     createStay: () => { },
-    // updateQNAStay: () => {},
     getStayByID: () => undefined,
     addBooking: () => { },
+    getBookingByID: () => undefined,
     // addTags: () => { }, //NYTT
-    // isQNAAnswered: () => false,
-    // toggleBookingsLock: () => { }
   }
 };
 
@@ -43,7 +38,7 @@ function StayProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     _getStays();
-    getBookings();
+    // getBookings();
     // getTags(); //NYTT
   }, [])
 
@@ -74,7 +69,7 @@ function StayProvider({ children }: PropsWithChildren) {
 
   const getStayByID: typeof defaultState.actions.getStayByID = (stayId: string): Stay | undefined => {
     // Match by Mongo _id as string; fallback to id if present in cached/local data
-    return stays.find(stay => String((stay as any)._id) === String(stayId) || String((stay as any).id) === String(stayId))
+    return stays.find(stay => String(stay._id) === String(stayId))
   }
   const addBooking: typeof defaultState.actions.addBooking = (booking): void => {
     const newBookings = [...bookings, booking]
@@ -84,43 +79,23 @@ function StayProvider({ children }: PropsWithChildren) {
     setBookings(newBookings)
   }
 
-  const getBookings = () => {
-    const _bookings: Booking[] = LocalStorageService.getItem('@stays/bookings', dummyBookings)
-    setBookings(_bookings)
+  // const getBookings = () => {
+  //   const _bookings: Booking[] = LocalStorageService.getItem('@stays/bookings', dummyBookings)
+  //   setBookings(_bookings)
+  // }
+
+  
+  const getBookingByID: typeof defaultState.actions.getBookingByID = (bookingId: String): Booking | undefined => {
+    // return room.find(room => room._id === roomId)
+    return bookings.find(b => String(b._id) === String(bookingId))
   }
-
-//     const addTags: typeof defaultState.actions.addTags = (tag): void => {
-//     const newTags = [...tags, tag]
-//     setTags(newTags)
-//     LocalStorageService.setItem<StayTag[]>('@stays/tags', newTags)
-
-//     setTags(newTags)
-//   }
-
-//     const getTags = () => {
-//     const _tags: StayTag[] = LocalStorageService.getItem('@stays/tags', preDefinedTags)
-//     setTags(_tags)
-//   }
-
-//   const toggleBookingsLock: typeof defaultState.actions.toggleBookingsLock = (stayId: number): void => {
-//     const updatedStays = stays.map((stay) =>
-//       stay.id === stayId
-//         ? { ...stay, bookingsLocked: !stay.bookingsLocked }
-//         : stay
-//     );
-
-//     setStays(updatedStays);
-//     LocalStorageService.setItem('@stays/stays', updatedStays);
-//   }
 
   const actions: typeof defaultState.actions = {
     createStay,
-    // updateQNAStay,
+    getBookingByID,
     getStayByID,
     addBooking,
     // addTags,
-    // isQNAAnswered,
-    // toggleBookingsLock
   }
 
   return (
