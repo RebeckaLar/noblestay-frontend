@@ -2,6 +2,12 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useUser } from '../contexts/UserContext'
 import { useEffect, useState } from 'react'
 
+type RegisterCredentials = {
+  userName: User['userName'],
+  email: User['email'],
+  password: User['password']
+}
+
 type RegisterFormProps = {
   onSuccess: () => void
 }
@@ -12,34 +18,40 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<User>({ defaultValues: { uid: Math.floor((Math.random() * 10000) + 1), userName: "", email: "", password: "" } })
+  } = useForm<User>({ defaultValues: { userName: "", email: "", password: "" } }) //the input-fields
 
-  const { users, actions } = useUser()
-
+  const { user, actions } = useUser()
   const [formError, setFormError] = useState<string>("")
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    if (isSubmitted == true) {
-      reset({ userName: "", email: "", password: "", uid: 0 })
-      onSuccess()
+    if (isSubmitted) {
+      reset({ userName: "", email: "", password: "" })
     }
     setIsSubmitted(false)
     setFormError("")
   }, [isSubmitted, reset])
 
-  const onSubmit: SubmitHandler<User> = (data: User) => {
-    const _user: User = { uid: data.uid, userName: data.userName.trim(), email: data.email.trim(), password: data.password.trim()}
-    const existingUser = users.find((u) => u.uid == _user.uid)
+  // const onSubmit: SubmitHandler<User> = async (data: User) => {
+    const onSubmit: SubmitHandler<RegisterCredentials> = async (userData: RegisterCredentials) => {
+    console.log(userData)
+    const _user= { userName: userData.userName, email: userData.email.trim(), password: userData.password.trim()}
+    // const existingUser = user?.id === _user._id ? user : undefined
 
-    if (!existingUser) {
+
+        
+    // if (!existingUser) {
+    //   actions.createUser(_user)
+    //   actions.setUser(_user)
       actions.createUser(_user)
-      actions.setUser(_user)
       setIsSubmitted(true)
-    } else {
-      setFormError("Username already taken")
-      return
-    }
+      setLoading(false)
+      onSuccess()
+    // } else {
+    //   setFormError("Username already taken")
+    //   return
+    // }
 
     return
   }
@@ -50,13 +62,13 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
 
         <div className="mb-4">
           <label className="block mb-2" >First and last name: </label>
-          <input className='border' {...register("userName", { required: true })} />
+          <input className='border' id='userName' {...register("userName", { required: true })} />
           {errors.userName && errors.userName.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a username</p>}
         </div>
 
         <div className="mb-4">
           <label className="block mb-2" >Email: </label>
-          <input className='border' {...register("email", { required: true })} />
+          <input type="email" className='border' id='email' {...register("email", { required: true })} />
           {errors.email && errors.email.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a valid email</p>}
         </div>
 

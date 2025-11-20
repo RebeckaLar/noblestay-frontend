@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react"
 import HorizontalList from "../components/HorizontalList"
+import axios from "../api/axios"
 
 const HomePage = () => {
+
+  const [stays, setStays] = useState([])
+
+  useEffect(() => {
+    const getStays = async () => {
+      const res = await axios.get('/api/stays')
+      console.log(res)
+      if(res.status !== 200) return
+
+      setStays(res.data)
+    }
+    getStays()
+  }, [])
+
+
 
   return (
     <div className="">
@@ -36,7 +53,7 @@ const HomePage = () => {
         </div>
       
       {/* LIST OF STAYS */}
-      <HorizontalList  />
+      <HorizontalList stays={stays} />
     </div>
   )
 }

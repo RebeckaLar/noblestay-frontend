@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import LocalStorageService from "../utils/LocalStorageService";
-import { dummyStays } from "../data/stays";
+// import { dummyStays } from "../data/stays";
 import { dummyBookings } from "../data/bookings";
+import api from "../api/axios";
 // import { preDefinedTags } from "../data/tag"; //NYTT
 
 type StayState = {
@@ -11,7 +12,7 @@ type StayState = {
   actions: {
     createStay: (stay: Stay) => void;
     // updateQNAStay: (threadIndex: number, updatedStay: QNAStay) => void;
-    getStayByID: (stayId: Stay['id']) => Stay | undefined;
+    getStayByID: (stayId: string) => Stay | undefined;
     addBooking: (booking: Booking) => void;
     // addTags: (tag: StayTag) => void; //NYTT
     // isQNAAnswered: (stayId: Stay['id']) => boolean;
@@ -47,9 +48,23 @@ function StayProvider({ children }: PropsWithChildren) {
     // getTags(); //NYTT
   }, [])
 
-  const _getStays = () => {
-    const _stays: Stay[] = LocalStorageService.getItem('@stays/stays', dummyStays);
-    setStays(_stays)
+  const _getStays = async () => {
+    try {
+      const res = await api.get('/api/stays');
+      if (res.status === 200 && Array.isArray(res.data)) {
+        // Persist a copy locally as cache
+        LocalStorageService.setItem<Stay[]>('@stays/stays', res.data as unknown as Stay[]);
+        setStays(res.data as unknown as Stay[]);
+        return;
+      }
+      // Non-200 or unexpected shape → fallback to cache
+      const cached: Stay[] = LocalStorageService.getItem('@stays/stays', []);
+      setStays(cached);
+    } catch (err) {
+      // Network/API error → fallback to cache
+      const cached: Stay[] = LocalStorageService.getItem('@stays/stays', []);
+      setStays(cached);
+    }
   }
 
   const createStay: typeof defaultState.actions.createStay = (stay) => {
@@ -65,8 +80,9 @@ function StayProvider({ children }: PropsWithChildren) {
 //     LocalStorageService.setItem<Stay[]>('@stays/stays', newStays)
 //   }
 
-  const getStayByID: typeof defaultState.actions.getStayByID = (stayId: Stay['id']): Stay | undefined => {
-    return stays.find(stay => stay.id === stayId)
+  const getStayByID: typeof defaultState.actions.getStayByID = (stayId: string): Stay | undefined => {
+    // Match by Mongo _id as string; fallback to id if present in cached/local data
+    return stays.find(stay => String((stay as any)._id) === String(stayId) || String((stay as any).id) === String(stayId))
   }
   const addBooking: typeof defaultState.actions.addBooking = (booking): void => {
     const newBookings = [...bookings, booking]

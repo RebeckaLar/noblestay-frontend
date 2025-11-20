@@ -20,7 +20,7 @@ const HostingPage = () => {
   }
 
   // Filter stays where the owner matches the current user
-  const userHostings = stays.filter((stay) => stay.owner.uid === currentUser.uid)
+  const userHostings = stays.filter((stay) => stay.owner._id === currentUser._id) //FIX ID
 
   return (
     <div className="container mx-auto px-4 mt-6">
@@ -30,7 +30,7 @@ const HostingPage = () => {
         {userHostings.length > 0 ? (
           userHostings.map((s, i) => (
             <div key={i} 
-            onClick={() => navigate(`/stays/${s.id}`, {
+            onClick={() => navigate(`/stays/${s._id}`, {
                 state: { from: "/hostings" },
                 })} 
               className="shadow-md rounded-xl pb-6 flex flex-col cursor-pointer">
@@ -61,7 +61,7 @@ const HostingPage = () => {
         )}
       </div>
 
-      <CreateStayForm defaultRules={"Check-in från 15:00"} owner={currentUser} />
+      <CreateStayForm defaultRules={"Check-in från 15:00"} />
     </div>
   )
 }

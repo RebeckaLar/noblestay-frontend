@@ -1,6 +1,7 @@
 
 type Stay = {
-    id: Number,
+    // id: Number,
+    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
     title: String; 
     description: String;
     rules: "Check-in från 15:00";
@@ -13,9 +14,14 @@ type Stay = {
     room: Room;
     price: Number;
     availableEvent?: String;
+    // Source - https://stackoverflow.com/a
+    // Posted by Misaz
+    // Retrieved 2025-11-19, License - CC BY-SA 3.0
+    image?: HTMLImageElement | String
 }
 
 type Booking = {
+    bid: Number,
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
     bookedStay: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
     checkInDate: Number;
@@ -29,7 +35,7 @@ type User = {
     userName: String,
     email: String;
     password: String; //never save in plain text! encryption required¨
-    uid: Number,
+    _id: String;
 }
 
 type GuestCategory =  "Adult" | "Children" | "Pets"

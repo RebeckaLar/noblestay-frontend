@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import { useState } from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import { useUser } from '@/contexts/UserContext';
+import { useUser } from '../contexts/UserContext';
 import { CgProfile } from 'react-icons/cg';
 import LogOutBtn from './LogOutBtn';
 

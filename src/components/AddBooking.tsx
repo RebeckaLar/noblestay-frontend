@@ -28,29 +28,9 @@ import {
   ItemTitle,
 } from "@/components/ui/item"
 
-import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useRoom } from "@/contexts/RoomContext";
 import { useBooking } from "@/contexts/BookingContext";
-
-// Define the booking data type that matches what we send to BookingReview
-// type BookingData = {
-//   rid: string;
-//   dateRange: { from: Date; to: Date };
-//   numberOfGuests: number;
-// }; //FIX
-
-// const formSchema = z.object({
-//   rid: z.string().nonempty({ message: "You need to choose room" }), //FIX TYPE
-//   dateRange: z.object({
-//     from: z.date({ message: "Start date is required" }),
-//     to: z.date({ message: "End date is required" })
-//   }).refine((data) => data.from < data.to, {
-//     message: "End date must be after start date",
-//     path: ["to"],
-//   }),
-//   numberOfGuests: z.number().min(1, { message: "At least 1 guest required" }),
-// });
 
 function AddBooking() {
   const [searchParams] = useSearchParams();
@@ -109,7 +89,6 @@ function AddBooking() {
       //MAKE AN API CALL OR SAVE TO LOCAL STORAGE
       
       //Save booking data to context
-      //Save booking data to context
       const totalGuests = values.adults + values.children + values.pets;
       setBookingData({
         rid: values.rid,
@@ -131,7 +110,7 @@ function AddBooking() {
     }
   }
   
-  // Pricing derivations
+  //Pricing derivations
   const selectedRid = form.watch('rid');
   const selectedRoomData = room.find((r) => String(r.rid) === selectedRid);
   const dateRange = form.watch('dateRange');
@@ -155,7 +134,6 @@ function AddBooking() {
         </div>
 
         {/* SELECT DATE */}
-        {/* <div className="deadline sm:flex sm:justify-center justify-items-center sm:gap-10"> */}
         <FormField
           control={form.control}
           name="dateRange"
@@ -173,7 +151,6 @@ function AddBooking() {
               </FormItem>
             </>
           )} />
-        {/* </div> */}
 
 
         {/* SELECT GUESTS */} 
@@ -400,7 +377,7 @@ function AddBooking() {
                   <div className="flex flex-col text-center gap-2">
                     <p className="caption text-(--grey)">You will not be charged yet</p>
                     <button
-                      className="primary-btn"
+                      className="secondary-btn"
                       disabled={loading || submitted}
                       type="submit">{loading ? "Reserving..." : "Reserve"}
                     </button>
