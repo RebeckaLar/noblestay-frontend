@@ -4,6 +4,7 @@ import { useUser } from "@/contexts/UserContext"
 import { useNavigate } from "react-router"
 
 
+
 const HostingPage = () => {
 
   const { user } = useUser()
@@ -67,7 +68,7 @@ const HostingPage = () => {
         )}
       </div>
 
-      <CreateStayForm defaultRules={"Check-in från 15:00"} />
+      <CreateStayForm  />
     </div>
   )
 }

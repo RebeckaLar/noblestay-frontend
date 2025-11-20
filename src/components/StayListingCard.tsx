@@ -7,6 +7,7 @@ const StayListingCard = () => {
     const { stays, actions } = useStay()
     const { currentUser } = useUser()
     const navigate = useNavigate()
+    console.log(stays)
 
   return (
         <div className="listing-cards grid grid-cols-1 gap-10">
