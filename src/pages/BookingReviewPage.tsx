@@ -9,6 +9,7 @@ import { CgArrowRight } from "react-icons/cg";
 import { useUser } from "@/contexts/UserContext";
 import LoginForm from "@/components/LoginForm";
 import { useState } from "react";
+import RegisterForm from "@/components/RegisterForm";
 
 function BookingReviewPage() {
   const navigate = useNavigate();
@@ -16,7 +17,6 @@ function BookingReviewPage() {
   const { actions: roomActions } = useRoom();
   const { bookingData, clearBooking } = useBooking();
   const { currentUser } = useUser()
-  const [showLogin, setshowLogin] = useState<boolean>(false)
   const [showRegister, setshowRegister] = useState<boolean>(false)
   
   //If no booking data, redirect back
@@ -48,11 +48,13 @@ function BookingReviewPage() {
         </button>
 
       <div className="container mx-auto px-4">
-        <h4>Booking Summary</h4>
+
         
         {/* <div className="mt-6 space-y-4"> */}
           {/* Stay Details */}
           <div className="p-4">
+            <div>
+            <h4>Booking Summary</h4>
             <div className=" bg-gray-300 h-58 rounded-xl">Image</div>
             <h6>{stay.title}</h6>
             <div className="flex gap-1">
@@ -113,7 +115,9 @@ function BookingReviewPage() {
               <p>{room.price.toString()}</p>
             )}
           </div>
-          {/* ACTION BUTTON */}
+          </div>
+
+          <div className="flex flex-col items-center">
           { currentUser &&
           <div className="flex justify-center gap-4 mt-6">
             <Button className="action-btn" onClick={() => {
@@ -127,15 +131,24 @@ function BookingReviewPage() {
             </Button>
           </div>
           }
-
-          { !currentUser &&
-          <div>
-          <LoginForm onSuccess={() => setshowLogin(false)}/>
-          <p className="text-sm my-4">Don't have an account? {''}
-            <button className="text-(--action) underline text-sm" onClick={() => { setshowLogin(false); setshowRegister(true) }}>SIGN UP</button>
-          </p>
-          </div>
+          { !currentUser && !showRegister &&
+            <div>
+              <LoginForm onSuccess={() => console.log('Login successful')}/>
+                <p className="text-sm my-4">Don't have an account? {''}
+                <button className="text-(--action) underline text-sm" onClick={() => setshowRegister(true)}>SIGN UP</button>
+              </p>
+            </div>
           }
+
+          { !currentUser && showRegister && 
+          <div>
+            <RegisterForm onSuccess={() => setshowRegister(false)}/>
+              <p className="text-sm my-4">Already have an account? {''}
+                <button className="text-(--action) underline text-sm" onClick={() => setshowRegister(false)}>LOGIN</button>
+              </p>
+            </div>
+          }
+        </div>
       </div>
     </>
   );
