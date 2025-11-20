@@ -1,12 +1,17 @@
-import { useUser } from "@/contexts/UserContext"
+import { useUser } from "../contexts/UserContext"
 import { IoLogOutOutline } from "react-icons/io5"
+import { useNavigate } from "react-router"
 
 function LogOutBtn() {
 
     const { currentUser, actions } = useUser()
+    const navigate = useNavigate()
 
-    const handleLogOut: React.MouseEventHandler<HTMLButtonElement> = () => {
-        actions.setUser(null)
+    const handleLogOut = () => {
+        if (currentUser) {
+            actions.logout()
+            navigate('/')
+        }
         return
     }
 

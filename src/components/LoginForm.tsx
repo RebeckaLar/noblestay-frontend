@@ -2,6 +2,11 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
 
+type LoginCredentials = {
+  email: User['email'],
+  password: User['password']
+}
+
 type LoginFormProps = {
   onSuccess: () => void
 }
@@ -15,10 +20,11 @@ function LoginForm({ onSuccess }: LoginFormProps) {
     formState: { errors },
   } = useForm<User>({ defaultValues: { email: "", password: ""} })
 
-  const { users, actions } = useUser()
+  const { user, actions } = useUser()
 
   const [formError, setFormError] = useState<string>("")
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     if (isSubmitted) {
@@ -29,24 +35,26 @@ function LoginForm({ onSuccess }: LoginFormProps) {
 
   }, [isSubmitted, reset])
 
-  const onSubmit: SubmitHandler<User> = (data: User) => {
-    const existingUser = users.find((u) => u.email == data.email)
-
-    if (!existingUser) {
-      setFormError("Could not find account")
-    } else {
-      if (existingUser.password == data.password) {
-        actions.setUser(existingUser)
+  // const onSubmit: SubmitHandler<User> = (data: User) => {
+  const onSubmit: SubmitHandler<LoginCredentials> = async (userData: LoginCredentials) => {  
+        console.log(userData.email)
+    const _user= {  email: userData.email.trim(), password: userData.password.trim()}
+  // const existingUser = _user.find((u: User) => u.email == userData.email)
+//FIX
+    // if (!existingUser) {
+    //   setFormError("Could not find account")
+    // } else {
+      // if (existingUser.password == userData.password) {
+        actions.loginUser(_user)
         setIsSubmitted(true)
+        setLoading(false)
         onSuccess()
-      } else {
-        setFormError("Wrong password")
+      // } else {
+      //   setFormError("Wrong password")
+      //   return
+      // }
         return
-      }
     }
-
-    return
-  }
 
   return (
     <div className="w-full max-w-xs">
@@ -54,7 +62,7 @@ function LoginForm({ onSuccess }: LoginFormProps) {
 
         <div className="mb-4">
           <label className="block mb-2" >Email: </label>
-          <input className='border' {...register("email", { required: true })} />
+          <input className='border' id="email" {...register("email", { required: true })} />
           {errors.email && errors.email.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a valid email</p>}
         </div>
 

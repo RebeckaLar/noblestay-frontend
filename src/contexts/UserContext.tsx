@@ -8,12 +8,18 @@ type UserState = {
     authReady: Boolean,
     actions: {
         createUser: (userInfo: RegisterCredentials) => void
-        //login
+        loginUser: (userInfo: LoginCredentials) => void
+        logout: () => void
     }
 }
 
 type RegisterCredentials = {
   userName: User['userName'],
+  email: User['email'],
+  password: User['password']
+}
+
+type LoginCredentials = {
   email: User['email'],
   password: User['password']
 }
@@ -24,6 +30,8 @@ const defaultState: UserState = {
     authReady: false,
     actions: {
         createUser: () => {},
+        loginUser: () => {},
+        logout: () => {},
         // register: () => {},
     }
 }
@@ -53,7 +61,7 @@ function UserProvider ({ children }: PropsWithChildren) {
             const token = sessionStorage.getItem('jwt')
             if(!token) return
 
-            const res = await axios.get('auth/check', {
+            const res = await axios.get('api/auth/check', {
                 headers: {
                     authorization: `Bearer ${sessionStorage.getItem('jwt') || ''}`
                 }
@@ -114,8 +122,23 @@ function UserProvider ({ children }: PropsWithChildren) {
         // const updatedUsers = [...users, user]
         // _setUsers(updatedUsers)
 
-        sessionStorage.setItem('jwt', res.data.usertoken)
+        setCurrentUser(res.data._id)
+        sessionStorage.setItem('jwt', res.data.token)
     }
+
+    const loginUser: typeof defaultState.actions.loginUser = async (userInfo: LoginCredentials) => {
+        const res = await axios.post('api/auth/login', userInfo)
+            console.log(res.data)
+        setToken(res.data.token)
+        setUser({
+                _id: res.data._id,
+                // userName: res.data.userName,
+                // email: res.data.email,
+        })
+        setCurrentUser(res.data._id)
+        sessionStorage.setItem('jwt', res.data.token)
+    }
+    
     
     // const _getUsers = () => {
     //     const _users: User[] = LocalStorageService.getItem('@stays/users', [])
@@ -150,8 +173,18 @@ function UserProvider ({ children }: PropsWithChildren) {
 
     //logout user FIX
 
+    const logout = () => {
+        console.log('Logging out...')
+        sessionStorage.removeItem('jwt')
+        setToken(null)
+        setUser(null)
+        setCurrentUser(null)
+    }
+
     const actions = {
         createUser,
+        loginUser,
+        logout
         // setUser
         // register,
     }

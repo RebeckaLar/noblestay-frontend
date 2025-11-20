@@ -1,8 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useUser } from '../contexts/UserContext'
 import { useEffect, useState } from 'react'
-import axios from '@/api/axios'
-import type { Register } from 'react-router'
 
 type RegisterCredentials = {
   userName: User['userName'],
@@ -10,7 +8,11 @@ type RegisterCredentials = {
   password: User['password']
 }
 
-function RegisterForm() {
+type RegisterFormProps = {
+  onSuccess: () => void
+}
+
+function RegisterForm({ onSuccess }: RegisterFormProps) {
   const {
     register,
     handleSubmit,
@@ -45,6 +47,7 @@ function RegisterForm() {
       actions.createUser(_user)
       setIsSubmitted(true)
       setLoading(false)
+      onSuccess()
     // } else {
     //   setFormError("Username already taken")
     //   return
