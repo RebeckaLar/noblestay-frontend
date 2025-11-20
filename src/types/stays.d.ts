@@ -17,7 +17,7 @@ type Stay = {
     // Source - https://stackoverflow.com/a
     // Posted by Misaz
     // Retrieved 2025-11-19, License - CC BY-SA 3.0
-    image?: HTMLImageElement
+    image?: HTMLImageElement | String
 }
 
 type Booking = {
