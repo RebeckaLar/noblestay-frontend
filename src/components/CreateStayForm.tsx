@@ -11,7 +11,7 @@ type StayFormData = {
       price: number,
       availableEvent: boolean,
       image: string,
-        owner: User['_id']
+      owner: User['_id']
 
 };
 

@@ -24,8 +24,8 @@ function BookingReviewPage() {
   }
   
   //Get stay and room details
-  const stay = actions.getStayByID(Number(bookingData.stayId));
-  const room = roomActions.getRoomByID(Number(bookingData.rid));
+  const stay = actions.getStayByID(bookingData.stayId);
+  const room = roomActions.getRoomByID(bookingData._id);
   
   if (!stay) {
     return <div>Stay not found</div>;

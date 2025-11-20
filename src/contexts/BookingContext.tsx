@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
+import api from "../api/axios";
 
 type BookingData = {
-  rid: string;
+  _id: string;
   dateRange: { from: Date; to: Date };
   guestType: Stay['guestType'];
   numberOfGuests: number;

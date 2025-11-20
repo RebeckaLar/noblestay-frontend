@@ -7,7 +7,7 @@ type Stay = {
     rules: "Check-in från 15:00";
     owner: User;
     location: String;
-    bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}];
+    // bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}];
     guestType: GuestCategory;
     numberOfGuests: Number;
     room: Room;
@@ -20,9 +20,9 @@ type Stay = {
 }
 
 type Booking = {
-    bid: Number,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true };
-    bookedStay: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true};
+    _id: String,
+    user: User;
+    bookedStay: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true };
     checkInDate: Number;
     checkOutDate: Number;
     room: Room;
@@ -40,7 +40,7 @@ type User = {
 type GuestCategory =  "Adult" | "Children" | "Pets"
 
 type Room = {
-    rid: Number,
+    _id: String,
     title: String,
     roomCategory: "Standard Castle Room" | "Luxury Ruite" | "Unique Tower Room"
     description: String,

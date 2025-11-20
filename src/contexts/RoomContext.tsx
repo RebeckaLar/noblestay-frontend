@@ -9,7 +9,8 @@ type RoomState = {
   bookings: Booking[];
   actions: {
     createRoom: (room: Room) => void;
-    getRoomByID: (roomId: Room['rid']) => Room | undefined;
+    // getRoomByID: (roomId: Room['_id']) => Room | undefined;
+    getRoomByID: (roomId: String) => Room | undefined;
     // addBooking: (booking: Booking) => void;
   }
 };
@@ -38,6 +39,7 @@ function RoomProvider({ children }: PropsWithChildren) {
   const _getRooms = () => {
     const _rooms: Room[] = LocalStorageService.getItem('@stays/rooms', dummyRooms);
     setRooms(_rooms)
+    
   }
 
   const createRoom: typeof defaultState.actions.createRoom = (newRoom) => {
@@ -46,8 +48,10 @@ function RoomProvider({ children }: PropsWithChildren) {
     LocalStorageService.setItem<Room[]>('@stays/rooms', newRooms)
   }
 
-  const getRoomByID: typeof defaultState.actions.getRoomByID = (roomId: Number): Room | undefined => {
-    return room.find(room => room.rid === roomId)
+  const getRoomByID: typeof defaultState.actions.getRoomByID = (roomId: String): Room | undefined => {
+    // return room.find(room => room._id === roomId)
+    // Match by Mongo _id as string; fallback to id if present in cached/local data
+    return room.find(r => String((r as any)._id) === String(roomId) || String((r as any).id) === String(roomId))
   }
 //   const addBooking: typeof defaultState.actions.addBooking = (booking): void => {
 //     const newBookings = [...bookings, booking]

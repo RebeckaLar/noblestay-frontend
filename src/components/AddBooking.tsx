@@ -47,7 +47,7 @@ function AddBooking() {
 
     // DEFINING FORM FOR RESERVING A CASTLE STAY:
   const formSchema = z.object({
-    rid: z.string().nonempty({ message: "You need to choose room" }),
+    _id: z.string().nonempty({ message: "You need to choose room" }),
     dateRange: z.object({
       from: z.date({ message: "Start date is required" }),
       to: z.date({ message: "End date is required" })
@@ -64,7 +64,7 @@ function AddBooking() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      rid: presetroomId ?? "",
+      _id: presetroomId ?? "",
       dateRange: {
         from: new Date(),
         to: new Date(new Date().setDate(new Date().getDate() + 1))
@@ -91,7 +91,7 @@ function AddBooking() {
       //Save booking data to context
       const totalGuests = values.adults + values.children + values.pets;
       setBookingData({
-        rid: values.rid,
+        _id: values._id,
         dateRange: values.dateRange,
         guestType: values.guestType,
         numberOfGuests: totalGuests,
@@ -111,8 +111,8 @@ function AddBooking() {
   }
   
   //Pricing derivations
-  const selectedRid = form.watch('rid');
-  const selectedRoomData = room.find((r) => String(r.rid) === selectedRid);
+  const selectedRid = form.watch('_id');
+  const selectedRoomData = room.find((r) => String(r._id) === selectedRid);
   const dateRange = form.watch('dateRange');
   const from = dateRange?.from;
   const to = dateRange?.to;
@@ -120,7 +120,7 @@ function AddBooking() {
   const nights = from && to ? Math.max(1, Math.ceil((to.getTime() - from.getTime()) / msPerDay)) : 1;
   const pricePerNight = selectedRoomData ? Number(selectedRoomData.price) : 0;
   const totalPrice = pricePerNight * nights;
-
+  
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col items-center">
@@ -305,7 +305,7 @@ function AddBooking() {
         {/* SELECT ROOM */}
         <FormField
           control={form.control}
-          name="rid"
+          name="_id"
           render={({ field }) => (
             <FormItem className="flex w-full max-w-md flex-col gap-6">
               <FormLabel><h6 className="h6-brown">Select room</h6></FormLabel>
@@ -315,8 +315,8 @@ function AddBooking() {
                 onValueChange={(val) => field.onChange(val)}
                 className="flex flex-col gap-4"
               >
-                {room.map((r) => (
-                  <div key={String(r.rid)} className="p-3 shadow-md rounded-lg">
+                {room.map((r, i) => (
+                  <div key={i} className="p-3 shadow-md rounded-lg">
                     <div className="flex flex-col justify-between items-center w-full">
                       <div>
                         <h6 className="font-medium">{r.title}</h6>
@@ -330,7 +330,7 @@ function AddBooking() {
                         <p className="body-small">{String(r.price)} kr / night</p>
                         <div className="flex gap-2">
                           <p className="body-small">Select this room</p>
-                          <RadioGroupItem value={String(r.rid)} id={`room-${r.rid}`} className="size-6" />
+                          <RadioGroupItem value={String(r._id)} id={`room-${r._id}`} className="size-6" />
                         </div>
                       </div>
                     </div>
