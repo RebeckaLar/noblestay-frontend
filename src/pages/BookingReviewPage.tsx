@@ -6,12 +6,18 @@ import { Button } from "../components/ui/button";
 import { BiChevronLeft } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
 import { CgArrowRight } from "react-icons/cg";
+import { useUser } from "@/contexts/UserContext";
+import LoginForm from "@/components/LoginForm";
+import { useState } from "react";
 
 function BookingReviewPage() {
   const navigate = useNavigate();
   const { actions } = useStay();
   const { actions: roomActions } = useRoom();
   const { bookingData, clearBooking } = useBooking();
+  const { currentUser } = useUser()
+  const [showLogin, setshowLogin] = useState<boolean>(false)
+  const [showRegister, setshowRegister] = useState<boolean>(false)
   
   //If no booking data, redirect back
   if (!bookingData) {
@@ -107,8 +113,8 @@ function BookingReviewPage() {
               <p>{room.price.toString()}</p>
             )}
           </div>
-          
           {/* ACTION BUTTON */}
+          { currentUser &&
           <div className="flex justify-center gap-4 mt-6">
             <Button className="action-btn" onClick={() => {
               // TO-DO: Implement actual booking confirmation
@@ -120,7 +126,16 @@ function BookingReviewPage() {
               CONFIRM BOOKING
             </Button>
           </div>
-        {/* </div> */}
+          }
+
+          { !currentUser &&
+          <div>
+          <LoginForm onSuccess={() => setshowLogin(false)}/>
+          <p className="text-sm my-4">Don't have an account? {''}
+            <button className="text-(--action) underline text-sm" onClick={() => { setshowLogin(false); setshowRegister(true) }}>SIGN UP</button>
+          </p>
+          </div>
+          }
       </div>
     </>
   );

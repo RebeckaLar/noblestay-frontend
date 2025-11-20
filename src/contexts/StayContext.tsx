@@ -74,7 +74,7 @@ function StayProvider({ children }: PropsWithChildren) {
 
   const getStayByID: typeof defaultState.actions.getStayByID = (stayId: string): Stay | undefined => {
     // Match by Mongo _id as string; fallback to id if present in cached/local data
-    return stays.find(stay => String((stay as any)._id) === String(stayId) || String((stay as any).id) === String(stayId))
+    return stays.find(stay => String(stay._id) === String(stayId))
   }
   const addBooking: typeof defaultState.actions.addBooking = (booking): void => {
     const newBookings = [...bookings, booking]
