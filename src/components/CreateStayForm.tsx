@@ -54,12 +54,13 @@ const CreateStayForm = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto py-8">
+      {/* FIX */}
       <p>
         CreateStayForm
         //axios anrop för skapa listing
         //sen svaret
         //lägger in i creatlistingunction från StayContext
-        //i context funk satte /uppdatera jagalla mina
+        //i context funk satte /uppdatera jagalla mina 
       </p>
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
                 {/* TITLE */}

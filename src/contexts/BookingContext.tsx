@@ -16,17 +16,64 @@ type BookingContextType = {
   bookingData: BookingData | null;
   setBookingData: (data: BookingData) => void;
   clearBooking: () => void;
+  createBooking: () => Promise<boolean>; // returns success flag
+  bookingLoading: boolean;
+  bookingError: string | null;
 };
 
 const BookingContext = createContext<BookingContextType | null>(null);
 
 export function BookingProvider({ children }: PropsWithChildren) {
   const [bookingData, setBookingData] = useState<BookingData | null>(null);
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingError, setBookingError] = useState<string | null>(null);
 
   const clearBooking = () => setBookingData(null);
 
+  const createBooking: BookingContextType['createBooking'] = async () => {
+    if (!bookingData) {
+      setBookingError('No booking data to submit');
+      return false;
+    }
+    setBookingLoading(true);
+    setBookingError(null);
+    try {
+      const token = sessionStorage.getItem('jwt');
+      if (!token) {
+        setBookingError('You must be logged in to confirm booking');
+        return false;
+      }
+      // Build payload expected by backend
+      const payload = {
+        stayId: bookingData.stayId,
+        room: bookingData._id, // backend expects 'room'
+        checkInDate: bookingData.dateRange.from.toISOString(),
+        checkOutDate: bookingData.dateRange.to.toISOString(),
+        guestType: bookingData.guestType,
+        numberOfGuests: bookingData.numberOfGuests,
+        adults: bookingData.adults ?? 0,
+        children: bookingData.children ?? 0,
+        pets: bookingData.pets ?? 0,
+      };
+      const res = await api.post('/api/bookings', payload, {
+        headers: { authorization: `Bearer ${token}` }
+      });
+
+      if (res.status === 201 || res.status === 200) {
+        return true;
+      }
+      setBookingError('Unexpected response from server');
+      return false;
+    } catch (err: any) { //FIX
+      setBookingError(err?.response?.data?.message || 'Failed to create booking');
+      return false;
+    } finally {
+      setBookingLoading(false);
+    }
+  };
+
   return (
-    <BookingContext.Provider value={{ bookingData, setBookingData, clearBooking }}>
+    <BookingContext.Provider value={{ bookingData, setBookingData, clearBooking, createBooking, bookingLoading, bookingError }}>
       {children}
     </BookingContext.Provider>
   );

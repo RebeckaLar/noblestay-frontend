@@ -15,7 +15,7 @@ function BookingReviewPage() {
   const navigate = useNavigate();
   const { actions } = useStay();
   const { actions: roomActions } = useRoom();
-  const { bookingData, clearBooking } = useBooking();
+  const { bookingData, clearBooking, createBooking, bookingLoading, bookingError } = useBooking();
   const { currentUser } = useUser()
   const [showRegister, setshowRegister] = useState<boolean>(false)
   
@@ -39,6 +39,17 @@ function BookingReviewPage() {
   if (!stay) {
     return <div>Stay not found</div>;
   }
+  // Derived pricing metrics
+  const nights = Math.max(
+    1,
+    Math.ceil(
+      (new Date(bookingData.dateRange.to).getTime() -
+        new Date(bookingData.dateRange.from).getTime()) /
+        (1000 * 60 * 60 * 24)
+    )
+  );
+  const nightly = room ? Number(room.price) : 0;
+  const total = nightly * nights;
   
   return (
     <>
@@ -69,12 +80,15 @@ function BookingReviewPage() {
           {/* Booking details: DATE */}
             <div className="p-4">
             <h6>Date:</h6>
-            <div className="flex gap-1 items-center">
+            <div className="flex gap-2 items-center">
               <p className="body-small">{new Date(bookingData.dateRange.from).toLocaleDateString()}</p>
-              <CgArrowRight />
+              <CgArrowRight className="text-(--grey)" />
               <p className="body-small">{new Date(bookingData.dateRange.to).toLocaleDateString()}</p>
             </div>
-          </div>     
+            <p className="caption text-(--grey) mt-1">
+              Nights: {Math.max(1, Math.ceil((new Date(bookingData.dateRange.to).getTime() - new Date(bookingData.dateRange.from).getTime()) / (1000*60*60*24)))}
+            </p>
+          </div>
 
           <hr className="solid text-(--grey)"></hr>   
           
@@ -112,25 +126,15 @@ function BookingReviewPage() {
           <div className="p-4">
             <h6>Price</h6>
             {room && (
-              <p>{room.price.toString()}</p>
+              <div className="space-y-1">
+                <p className="caption">{nights} night{nights>1?'s':''} x {nightly} SEK</p>
+                <p className="body-small font-medium">Total: {total} SEK</p>
+              </div>
             )}
           </div>
           </div>
 
           <div className="flex flex-col items-center">
-          { currentUser &&
-          <div className="flex justify-center gap-4 mt-6">
-            <Button className="action-btn" onClick={() => {
-              // TO-DO: Implement actual booking confirmation
-              console.log("Booking confirmed!");
-              clearBooking(); // Clear booking data after confirmation
-              alert("Booking confirmed! (This is a demo)");
-              navigate('/');
-            }}>
-              CONFIRM BOOKING
-            </Button>
-          </div>
-          }
           { !currentUser && !showRegister &&
             <div>
               <LoginForm onSuccess={() => console.log('Login successful')}/>
@@ -147,6 +151,23 @@ function BookingReviewPage() {
                 <button className="text-(--action) underline text-sm" onClick={() => setshowRegister(false)}>LOGIN</button>
               </p>
             </div>
+          }
+
+          { currentUser &&
+          <div className="flex flex-col items-center gap-2 mt-6">
+            {bookingError && <p className="text-(--error) text-sm">{bookingError}</p>}
+            <Button disabled={bookingLoading} className="action-btn my-4" onClick={async () => {
+              const ok = await createBooking();
+              if (ok) {
+                clearBooking();
+                alert('Booking confirmed!');
+                navigate('/');
+              }
+            }}>
+              {bookingLoading ? 'CONFIRMING...' : 'CONFIRM BOOKING'}
+            </Button>
+            <p className="caption text-(--grey)">You will receive a confirmation email shortly.</p>
+          </div>
           }
         </div>
       </div>
