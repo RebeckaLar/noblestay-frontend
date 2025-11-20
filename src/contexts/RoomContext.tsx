@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import LocalStorageService from "../utils/LocalStorageService";
 import { dummyRooms } from "../data/rooms";
-import { dummyBookings } from "../data/bookings";
 // import { preDefinedTags } from "../data/tag"; //NYTT
 
 type RoomState = {

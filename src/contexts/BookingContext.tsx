@@ -19,6 +19,8 @@ type BookingContextType = {
   createBooking: () => Promise<boolean>; // returns success flag
   bookingLoading: boolean;
   bookingError: string | null;
+  userBookings: Booking[];
+  fetchUserBookings: () => Promise<void>;
 };
 
 const BookingContext = createContext<BookingContextType | null>(null);
@@ -27,6 +29,7 @@ export function BookingProvider({ children }: PropsWithChildren) {
   const [bookingData, setBookingData] = useState<BookingData | null>(null);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
+  const [userBookings, setUserBookings] = useState<Booking[]>([]);
 
   const clearBooking = () => setBookingData(null);
 
@@ -72,8 +75,35 @@ export function BookingProvider({ children }: PropsWithChildren) {
     }
   };
 
+  const fetchUserBookings = async () => {
+    setBookingLoading(true);
+    setBookingError(null);
+    try {
+      const token = sessionStorage.getItem('jwt');
+      if (!token) {
+        setBookingError('You must be logged in to view bookings');
+        setUserBookings([]);
+        return;
+      }
+      const res = await api.get('/api/bookings/auth', {
+        headers: { authorization: `Bearer ${token}` }
+      });
+      if (res.status === 200 && Array.isArray(res.data)) {
+        setUserBookings(res.data);
+      } else {
+        setBookingError('Unexpected response from server');
+        setUserBookings([]);
+      }
+    } catch (err: any) {
+      setBookingError(err?.response?.data?.message || 'Failed to fetch bookings');
+      setUserBookings([]);
+    } finally {
+      setBookingLoading(false);
+    }
+  };
+
   return (
-    <BookingContext.Provider value={{ bookingData, setBookingData, clearBooking, createBooking, bookingLoading, bookingError }}>
+    <BookingContext.Provider value={{ bookingData, setBookingData, clearBooking, createBooking, bookingLoading, bookingError, userBookings, fetchUserBookings }}>
       {children}
     </BookingContext.Provider>
   );

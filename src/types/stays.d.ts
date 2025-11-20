@@ -7,7 +7,7 @@ type Stay = {
     rules: "Check-in från 15:00";
     owner: User;
     location: String;
-    // bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}];
+    bookings: Booking;
     guestType: GuestCategory;
     numberOfGuests: Number;
     room: Room;
@@ -20,14 +20,14 @@ type Stay = {
 }
 
 type Booking = {
-    _id: String,
+    _id: string;
     user: User;
-    bookedStay: { type: mongoose.Schema.Types.ObjectId, ref: 'Stay', required: true };
-    checkInDate: Number;
-    checkOutDate: Number;
-    room: Room;
+    bookedStay: Stay | string;
+    checkInDate: number;
+    checkOutDate: number;
+    room: Room | string;
     guestType: GuestCategory;
-    numberOfGuests: Number;
+    numberOfGuests: number;
 }
 
 type User = {

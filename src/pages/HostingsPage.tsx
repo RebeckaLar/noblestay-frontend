@@ -29,6 +29,8 @@ const HostingPage = () => {
     return ownerId === user._id
   })
 
+  console.log(userHostings)
+
   return (
     <div className="container mx-auto px-4 mt-6">
       <h5 className="m-3">My Hostings</h5>

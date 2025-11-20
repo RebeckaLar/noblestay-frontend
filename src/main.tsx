@@ -52,6 +52,10 @@ const router = createBrowserRouter([
           {
             path: '/hostings',
             element: <HostingPage />
+          },
+          {
+            path: '/bookings',
+            element: <BookingsPage />
           }
         ]
       },
@@ -81,13 +85,13 @@ const router = createBrowserRouter([
       //     <CreateStayForm />
       //   </PrivateRoute>
       // },
-      {
-        path: 'bookings',
-        element: 
-        <PrivateRoute>
-          <BookingsPage />
-        </PrivateRoute>
-      },
+      // {
+      //   path: 'bookings',
+      //   element: 
+      //   <PrivateRoute>
+      //     <BookingsPage />
+      //   </PrivateRoute>
+      // },
     ]
     //allt i children kmr renderas ut i outlet i layouten
   }
