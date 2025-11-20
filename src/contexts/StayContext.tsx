@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import LocalStorageService from "../utils/LocalStorageService";
-// import { dummyStays } from "../data/stays";
 import { dummyBookings } from "../data/bookings";
 import api from "../api/axios";
 // import { preDefinedTags } from "../data/tag"; //NYTT
@@ -73,13 +72,6 @@ function StayProvider({ children }: PropsWithChildren) {
     LocalStorageService.setItem<Stay[]>('@stays/stays', newStays)
   }
 
-//   const updateQNAStay: typeof defaultState.actions.updateQNAStay = (threadIndex: number, updatedStay: QNAStay) => {
-//     const newStays = [...stays]
-//     newStays[threadIndex] = updatedStay
-//     setStays(newStays)
-//     LocalStorageService.setItem<Stay[]>('@stays/stays', newStays)
-//   }
-
   const getStayByID: typeof defaultState.actions.getStayByID = (stayId: string): Stay | undefined => {
     // Match by Mongo _id as string; fallback to id if present in cached/local data
     return stays.find(stay => String((stay as any)._id) === String(stayId) || String((stay as any).id) === String(stayId))
@@ -108,17 +100,6 @@ function StayProvider({ children }: PropsWithChildren) {
 //     const getTags = () => {
 //     const _tags: StayTag[] = LocalStorageService.getItem('@stays/tags', preDefinedTags)
 //     setTags(_tags)
-//   }
-
-//   const isQNAAnswered: typeof defaultState.actions.isQNAAnswered = (stayId: number): boolean => {
-//     const stay = stays.find(t => t.id === stayId)
-
-//     if (stay && stay.category === "QNA") {
-//       const qnaStay = stay as QNAStay;
-//       return qnaStay.isAnswered;
-//     }
-
-//     return false;
 //   }
 
 //   const toggleBookingsLock: typeof defaultState.actions.toggleBookingsLock = (stayId: number): void => {

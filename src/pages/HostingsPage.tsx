@@ -1,5 +1,4 @@
 import CreateStayForm from "@/components/CreateStayForm"
-import StayListingCard from "@/components/StayListingCard"
 import { useStay } from "@/contexts/StayContext"
 import { useUser } from "@/contexts/UserContext"
 import { useNavigate } from "react-router"
@@ -7,11 +6,14 @@ import { useNavigate } from "react-router"
 
 const HostingPage = () => {
 
-  const { currentUser } = useUser()
+  const { user } = useUser()
   const { stays } = useStay()
   const navigate = useNavigate()
 
-  if(!currentUser) {
+  console.log('HostingsPage - user:', user)
+  console.log('HostingsPage - stays:', stays)
+
+  if(!user) {
     return (
       <div className="container mx-auto px-4 mt-6">
         <h5>Please log in to view your hostings</h5>
@@ -20,7 +22,11 @@ const HostingPage = () => {
   }
 
   // Filter stays where the owner matches the current user
-  const userHostings = stays.filter((stay) => stay.owner._id === currentUser._id) //FIX ID
+  const userHostings = stays.filter((stay) => {
+    // Handle both populated owner object and owner ID string
+    const ownerId = typeof stay.owner === 'string' ? stay.owner : stay.owner?._id
+    return ownerId === user._id
+  })
 
   return (
     <div className="container mx-auto px-4 mt-6">

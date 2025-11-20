@@ -1,5 +1,3 @@
-// import { useState } from "react"
-// import { dummyStays } from "../data/stays"
 import { useNavigate } from "react-router-dom";
 
 type StayProps = {
@@ -8,8 +6,6 @@ type StayProps = {
 
 
 const HorizontalList = ({ stays }: StayProps) => {
-  // Use local dummy data or fetch from API
-// const [stays, setStays] = useState(dummyStays)
 const navigate = useNavigate()
 
   return (
