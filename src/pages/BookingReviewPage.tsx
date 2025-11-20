@@ -17,8 +17,11 @@ function BookingReviewPage() {
   if (!bookingData) {
     return (
       <div className="container mx-auto px-4">
-        <h5>No booking data found</h5>
-        <Button onClick={() => navigate('/')}>Go back to home</Button>
+        <h5 className="m-4">No booking data found</h5>
+        <div className="flex gap-2 items-center mb-3">
+          <BiChevronLeft />
+          <button onClick={() => navigate('/')}>Go back to home</button>
+        </div>
       </div>
     );
   }
