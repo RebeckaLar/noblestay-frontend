@@ -4,10 +4,11 @@ import logo_door from '../assets/logo_door.svg'
 import Modal from 'react-modal';
 import { useState } from 'react';
 import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+
 import { useUser } from '@/contexts/UserContext';
 import { CgProfile } from 'react-icons/cg';
 import LogOutBtn from './LogOutBtn';
+import RegisterForm from './RegisterForm';
 
 function Header() {
     const { currentUser } = useUser()
@@ -46,9 +47,10 @@ function Header() {
                     { currentUser && <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/bookings">My bookings</NavLink></li> }
                     { currentUser && <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/hostings">My hostings</NavLink></li> }
                     <hr className="solid text-(--grey)"></hr>
-                    <li className='menu__item [&.active]:text-(--primary-purple) flex'>
+                    {/* <li className='menu__item [&.active]:text-(--primary-purple) flex'>
                     <LogOutBtn />
-                    </li>
+                    </li> */} 
+                    {/* FIX */}
 
 
                 </ul>

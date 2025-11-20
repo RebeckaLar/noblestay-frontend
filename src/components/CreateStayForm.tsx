@@ -75,7 +75,7 @@ export default function CreateStayForm({ defaultRules }: CreateStayFormProps) {
                         title: data.title,
                         description: data.description,
                         rules: defaultRules,
-                        owner: {  userName: currentUser.userName, email: currentUser.email, password: currentUser.password, uid: currentUser.uid, },
+                        owner: {  userName: currentUser.userName, email: currentUser.email, password: currentUser.password, _id: currentUser._id, },
                         // {
                         //     type: mongoose.Schema.Types.ObjectId;
                         //     ref: "User";

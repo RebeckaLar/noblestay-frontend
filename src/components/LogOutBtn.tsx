@@ -1,5 +1,5 @@
+import { useUser } from "@/contexts/UserContext"
 import { IoLogOutOutline } from "react-icons/io5"
-import { useUser } from "../contexts/UserContext"
 
 function LogOutBtn() {
 

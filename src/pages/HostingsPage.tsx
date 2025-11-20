@@ -20,7 +20,7 @@ const HostingPage = () => {
   }
 
   // Filter stays where the owner matches the current user
-  const userHostings = stays.filter((stay) => stay.owner.uid === currentUser.uid)
+  const userHostings = stays.filter((stay) => stay.owner._id === currentUser._id) //FIX ID
 
   return (
     <div className="container mx-auto px-4 mt-6">

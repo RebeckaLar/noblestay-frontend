@@ -35,7 +35,7 @@ type User = {
     userName: String,
     email: String;
     password: String; //never save in plain text! encryption required¨
-    uid: Number,
+    _id: String;
 }
 
 type GuestCategory =  "Adult" | "Children" | "Pets"

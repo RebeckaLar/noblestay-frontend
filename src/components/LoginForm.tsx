@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useUser } from '../contexts/UserContext'
 import { useEffect, useState } from 'react'
+import { useUser } from '@/contexts/UserContext'
 
 type LoginFormProps = {
   onSuccess: () => void
