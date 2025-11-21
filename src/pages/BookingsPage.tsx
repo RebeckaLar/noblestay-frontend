@@ -7,7 +7,7 @@ import { useNavigate } from "react-router"
 const BookingsPage = () => {
   const { user } = useUser()
   const { userBookings, fetchUserBookings, bookingLoading, bookingError } = useBooking()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
@@ -48,9 +48,9 @@ const BookingsPage = () => {
             
             return (
             <div key={i}
-              onClick={() => navigate(`/bookings/${b._id}`, {
-                state: { from: "/bookings" },
-              })}
+              // onClick={() => navigate(`/bookings/${b._id}`, {
+              //   state: { from: "/bookings" },
+              // })}
               className="shadow-md rounded-xl pb-6 flex flex-col cursor-pointer">
               {hasImage && stay?.image && (
                 <img 
@@ -76,7 +76,6 @@ const BookingsPage = () => {
                   <hr className="solid text-(--grey)" />
                   <div className="flex justify-between items-center">
                     <p className="body-small">{roomPrice} kr / night</p>
-                    <button className="primary-btn" type="button">Read more</button>
                   </div>
                 </div>
               </div>

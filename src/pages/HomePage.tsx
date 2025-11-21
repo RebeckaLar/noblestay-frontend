@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import HorizontalList from "../components/HorizontalList"
 import axios from "../api/axios"
+import { IoLocationOutline } from "react-icons/io5"
 
 const HomePage = () => {
 
   const [stays, setStays] = useState([])
+  const [location, setLocation] = useState("")
 
   useEffect(() => {
     const getStays = async () => {
@@ -17,6 +19,18 @@ const HomePage = () => {
     getStays()
   }, [])
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    const locationLower = location.toLowerCase()
+    const filtered = stays.filter((stay: any) => {
+      const stayLocation = stay.location?.toLowerCase() || ""
+      return stayLocation.includes("sweden") || stayLocation.includes("denmark")
+    })
+    
+    setStays(filtered)
+  }
+
 
 
   return (
@@ -28,22 +42,34 @@ const HomePage = () => {
               <h6 className="h6-brown p-2">Sleep in real castles, wake to real magic. Or why not join us for ghost hunting? With Noble Stay, your storybook stay begins for real.</h6>
             </div>
           </div>
-          <div className="search-form container mx-auto p-4 flex flex-col items-center bg-(--secondary)/80 rounded-lg h-87 w-[85%]">
-            <form className="search-items flex flex-col justify-between paragraph">
-              <label>Search location
-                <input id="location" name="location"></input>
-              </label>
-              <label>Search date
+          <div className="search-form container mx-auto p-4 flex flex-col items-center justify-center bg-(--secondary)/80 rounded-lg h-87 w-[85%]">
+            <form onSubmit={handleSearch} className="search-items flex flex-col justify-between gap-4 paragraph">
+              <div className="flex flex-col">
+              <label className="flex items-center gap-1 paragraph"> 
+                  <IoLocationOutline /> 
+                  Search location 
+                </label>
+                <input 
+                  id="location" 
+                  name="location"
+                  className="p-1"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="e.g., Sweden or Denmark"
+                />
+
+              </div>
+              {/* <label>Search date
                 <input id="date" name="date"></input>
-              </label>
-              <label>Select guests
+              </label> */}
+              {/* <label>Select guests
                 <input id="guests" name="guests"></input>
               </label>
-              <button type="button">Filter</button>
+              <button type="button">Filter</button> */}
+              <button className="primary-btn" type="submit">
+                Search
+              </button>
             </form>
-            <button className="primary-btn" type="submit">
-              Search
-            </button>
           </div>
         </div>
 
