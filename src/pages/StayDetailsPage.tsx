@@ -28,6 +28,8 @@ const StayDetailsPage = () => {
     )
   }
 
+  const hasImage = stay.image && String(stay.image).trim() !== '';
+
   return (
     <div className="container mx-auto px-4">
       <button onClick={() => navigate(-1)} className='flex gap-2 items-center mb-3'>
@@ -37,7 +39,17 @@ const StayDetailsPage = () => {
 
 {/* STAY DETAILS */}
     <div className="container">
-      <div className=" bg-gray-300 h-58 rounded-xl">Image</div>
+      {hasImage ? (
+        <img 
+          src={String(stay.image)} 
+          alt={String(stay.title)}
+          className="w-full h-58 rounded-xl object-cover"
+        />
+      ) : (
+        <div className="bg-gray-300 h-58 rounded-xl flex items-center justify-center text-gray-500">
+          No image available
+        </div>
+      )}
       
       {/* CASTLE DESCRIPTION */}
       <div className="mt-4">

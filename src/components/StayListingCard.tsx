@@ -11,13 +11,29 @@ const StayListingCard = () => {
 
   return (
         <div className="listing-cards grid grid-cols-1 gap-10">
-          {stays.map((s, i) => (
+          {stays.map((s, i) => {
+            const hasImage = s.image && String(s.image).trim() !== '';
+            
+            return (
             <div key={i} 
             onClick={() => navigate(`/stays/${s._id}`, {
                 state: { from: "/", flash: "Welcome to your dashboard!" },
                 })} 
               className="shadow-md rounded-xl pb-6 flex flex-col">
-              <div className="bg-gray-300 rounded-t-xl w-full min-h-55"></div>
+              {hasImage && (
+                <img 
+                  src={String(s.image)} 
+                  alt={String(s.title)}
+                  className="rounded-t-xl w-full h-55 object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              )}
+              <div className={`bg-gray-300 rounded-t-xl w-full min-h-55 flex items-center justify-center text-gray-500 ${hasImage ? 'hidden' : ''}`}>
+                No image
+              </div>
 
               <div className="lower-half px-4 h-full flex flex-col">
                 <div className="py-3">
@@ -37,7 +53,8 @@ const StayListingCard = () => {
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
   )
 }

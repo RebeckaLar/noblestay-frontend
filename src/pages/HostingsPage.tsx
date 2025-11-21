@@ -13,6 +13,7 @@ const HostingPage = () => {
 
   console.log('HostingsPage - user:', user)
   console.log('HostingsPage - stays:', stays)
+  console.log('First stay image:', stays[0]?.image)
 
   if(!user) {
     return (
@@ -37,13 +38,29 @@ const HostingPage = () => {
 
       <div className="listing-cards grid grid-cols-1 sm:grid-cols-2 gap-6">
         {userHostings.length > 0 ? (
-          userHostings.map((s, i) => (
+          userHostings.map((s, i) => {
+            const hasImage = s.image && String(s.image).trim() !== '';
+            
+            return (
             <div key={i} 
             onClick={() => navigate(`/stays/${s._id}`, {
                 state: { from: "/hostings" },
                 })} 
               className="shadow-md rounded-xl pb-6 flex flex-col cursor-pointer">
-              <div className="bg-gray-300 rounded-t-xl w-full min-h-55"></div>
+              {hasImage && (
+                <img 
+                  src={String(s.image)} 
+                  alt={String(s.title)}
+                  className="rounded-t-xl w-full h-55 object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              )}
+              <div className={`bg-gray-300 rounded-t-xl w-full min-h-55 flex items-center justify-center text-gray-500 ${hasImage ? 'hidden' : ''}`}>
+                No image
+              </div>
 
               <div className="lower-half px-4 h-full flex flex-col">
                 <div className="py-3">
@@ -62,7 +79,8 @@ const HostingPage = () => {
                 </div>
               </div>
             </div>
-          ))
+            )
+          })
         ) : (
           <div className="col-span-full">
             <p className="paragraph text-gray-500">You're not hosting any stay yet. Create a stay below!</p>

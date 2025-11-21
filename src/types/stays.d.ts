@@ -13,10 +13,7 @@ type Stay = {
     room: Room;
     price: Number;
     availableEvent?: String,
-    // Source - https://stackoverflow.com/a
-    // Posted by Misaz
-    // Retrieved 2025-11-19, License - CC BY-SA 3.0
-    image?: HTMLImageElement | String
+    image?: String
 }
 
 type Booking = {

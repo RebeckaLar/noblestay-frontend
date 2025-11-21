@@ -126,12 +126,7 @@ function AddBooking() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col items-center">
         
         
-        {/*Debug info remove after testing */}
-        <div style={{ background: '#f0f0f0', padding: '10px', fontSize: '12px' }}>
-          <strong>Debug Form State:</strong>
-          <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
-          <pre>{JSON.stringify(form.getValues(), null, 2)}</pre>
-        </div>
+
 
         {/* SELECT DATE */}
         <FormField
