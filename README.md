@@ -1,5 +1,18 @@
-# React + TypeScript + Vite
+# Noble Stay - AirBnb-inspired Website for Castles
+Project aim is to use our knowledge from earlier courses to build the frontend part of an AirBnb-inspired website.
 
+## Tech Stack
+- React + Vite + TypeScript with React router
+- Tailwind, shadcn and react icons for styling
+
+## Installation
+### Clone this repository
+```
+git clone https://github.com/RebeckaLar/noblestay-backend.git
+cd noblestay-backend
+```
+
+# React + TypeScript + Vite
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
