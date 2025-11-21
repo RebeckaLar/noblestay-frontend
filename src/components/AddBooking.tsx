@@ -9,8 +9,6 @@ import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button"
 import {
   Form,
-  FormControl, //FIX
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,7 +22,6 @@ import {
   ItemActions,
   ItemContent,
   ItemDescription,
-  ItemMedia,
   ItemTitle,
 } from "@/components/ui/item"
 
@@ -45,7 +42,7 @@ function AddBooking() {
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    // DEFINING FORM FOR RESERVING A CASTLE STAY:
+    //DEFINING FORM FOR RESERVING A CASTLE STAY:
   const formSchema = z.object({
     _id: z.string().nonempty({ message: "You need to choose room" }),
     dateRange: z.object({
@@ -76,18 +73,15 @@ function AddBooking() {
     },
   });
 
-    // CLICKING ON SUBMIT BUTTON:
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("🎉 onSubmit called!", values);
     setLoading(true);
     setErrorMessage(null);
     
     try {
       console.log("Form submitted:", values);
       setSubmitted(true); //To avoid spam
-      console.log("success!");
-      //MAKE AN API CALL OR SAVE TO LOCAL STORAGE
-      
+      console.log("Success");
+
       //Save booking data to context
       const totalGuests = values.adults + values.children + values.pets;
       setBookingData({
@@ -100,7 +94,7 @@ function AddBooking() {
         pets: values.pets,
         stayId: params.id || ''
       });
-      //Navigate to booking review
+
       navigate('/booking-review');
     } catch (error) {
       console.error("Submission error:", error);
@@ -124,9 +118,6 @@ function AddBooking() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col items-center">
-        
-        
-
 
         {/* SELECT DATE */}
         <FormField
@@ -135,7 +126,7 @@ function AddBooking() {
           render={({ field }) => (
             <>
               <FormItem>
-                <FormLabel><h6 className="h6-brown">Select date</h6></FormLabel>
+                <FormLabel><h6 className="h6-brown mt-6">Select date</h6></FormLabel>
                 <Calendar
                   className="flex w-full items-center justify-center"
                   mode="range"
@@ -178,7 +169,7 @@ function AddBooking() {
                     </Button>
                     <Input
                       type="number"
-                      className="w-10 items-center"
+                      className="w-16 items-center"
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       value={field.value}
                       min={1}
@@ -226,7 +217,7 @@ function AddBooking() {
                     </Button>
                     <Input
                       type="number"
-                      className="w-10 items-center"
+                      className="w-16 items-center"
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       value={field.value ?? 0}
                       min={0}
@@ -274,7 +265,7 @@ function AddBooking() {
                     </Button>
                     <Input
                       type="number"
-                      className="w-10 items-center"
+                      className="w-16 items-center"
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       value={field.value ?? 0}
                       min={0}
@@ -345,7 +336,6 @@ function AddBooking() {
 
 
       <div className="space-y-1 pb-6 w-full">
-        {/* <div> */}
           {selectedRoomData ? ( //If user has selected room
               <div className="flex flex-row gap-6 justify-around">
                 <div>
@@ -379,9 +369,6 @@ function AddBooking() {
                   </div>
               </div>
           )}
-        {/* </div> */}
-
-
         </div>
       </form>
     </Form>

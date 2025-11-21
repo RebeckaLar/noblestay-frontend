@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import HorizontalList from "../components/HorizontalList"
 import axios from "../api/axios"
 import { IoLocationOutline } from "react-icons/io5"
+import { useNavigate } from "react-router-dom"
 
 const HomePage = () => {
-
+  const navigate = useNavigate()
   const [stays, setStays] = useState([])
   const [location, setLocation] = useState("")
 
@@ -22,13 +23,9 @@ const HomePage = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     
-    const locationLower = location.toLowerCase()
-    const filtered = stays.filter((stay: any) => {
-      const stayLocation = stay.location?.toLowerCase() || ""
-      return stayLocation.includes("sweden") || stayLocation.includes("denmark")
-    })
-    
-    setStays(filtered)
+    if (location.trim()) {
+      navigate(`/stays?location=${encodeURIComponent(location)}`)
+    }
   }
 
 
@@ -43,9 +40,9 @@ const HomePage = () => {
             </div>
           </div>
           <div className="search-form container mx-auto p-4 flex flex-col items-center justify-center bg-(--secondary)/80 rounded-lg h-87 w-[85%]">
-            <form onSubmit={handleSearch} className="search-items flex flex-col justify-between gap-4 paragraph">
-              <div className="flex flex-col">
-              <label className="flex items-center gap-1 paragraph"> 
+            <form onSubmit={handleSearch} className="search-items flex justify-between gap-4 paragraph">
+              <div className="search-input-hp flex flex-col">
+              <label htmlFor="location" className="flex items-center gap-1 paragraph"> 
                   <IoLocationOutline /> 
                   Search location 
                 </label>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
-import api from "../api/axios";
+import axios from "../api/axios";
 
 type BookingData = {
   _id: string;
@@ -58,7 +58,7 @@ export function BookingProvider({ children }: PropsWithChildren) {
         children: bookingData.children ?? 0,
         pets: bookingData.pets ?? 0,
       };
-      const res = await api.post('/api/bookings', payload, {
+      const res = await axios.post('/api/bookings', payload, {
         headers: { authorization: `Bearer ${token}` }
       });
 
@@ -86,7 +86,7 @@ export function BookingProvider({ children }: PropsWithChildren) {
         setUserBookings([]);
         return;
       }
-      const res = await api.get('/api/bookings/auth', {
+      const res = await axios.get('/api/bookings/auth', {
         headers: { authorization: `Bearer ${token}` }
       });
       if (res.status === 200 && Array.isArray(res.data)) {

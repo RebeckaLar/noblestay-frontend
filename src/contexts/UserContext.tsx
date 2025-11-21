@@ -13,7 +13,7 @@ type UserState = {
 }
 
 type RegisterCredentials = {
-  userName: User['userName'],
+  phone: User['phone'],
   email: User['email'],
   password: User['password']
 }
@@ -63,7 +63,7 @@ function UserProvider ({ children }: PropsWithChildren) {
                 setToken(token)
                 setUser(res.data)
             } else {
-                // Non-200 response: clear everything
+                //Non-200 response: clear everything
                 sessionStorage.removeItem('jwt')
                 setToken(null)
                 setUser(null)
@@ -71,7 +71,7 @@ function UserProvider ({ children }: PropsWithChildren) {
             }
 
         } catch (error) {
-            // Token invalid or network error: clear everything
+            //Token invalid or network error: clear everything
             console.log('Token check failed:', error instanceof Error ? error.message : 'Unknown error')
             sessionStorage.removeItem('jwt')
             setToken(null)
@@ -94,8 +94,6 @@ function UserProvider ({ children }: PropsWithChildren) {
         setToken(res.data.token)
         setUser({
                 _id: res.data._id,
-                // userName: res.data.userName,
-                // email: res.data.email,
         })
 
         setCurrentUser(res.data._id)
@@ -104,21 +102,16 @@ function UserProvider ({ children }: PropsWithChildren) {
 
     const loginUser: typeof defaultState.actions.loginUser = async (userInfo: LoginCredentials) => {
         const res = await axios.post('api/auth/login', userInfo)
-            console.log(res.data) //FIX REMOVE
         setToken(res.data.token)
-        setUser({
-                _id: res.data._id,
-                // userName: res.data.userName,
-                // email: res.data.email,
-        })
+        setUser({_id: res.data._id,})
         setCurrentUser(res.data._id)
         sessionStorage.setItem('jwt', res.data.token)
     }
 
     const logout = () => {
-        console.log('Logout called - clearing token from sessionStorage')
+        console.log('Logout called- clearing token from sessionStorage')
         sessionStorage.removeItem('jwt')
-        console.log('Token after removal:', sessionStorage.getItem('jwt')) // Should be null
+        console.log('Token after removal:', sessionStorage.getItem('jwt')) // should be null
         setToken(null)
         setUser(null)
         setCurrentUser(null)

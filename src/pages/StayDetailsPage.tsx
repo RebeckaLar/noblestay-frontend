@@ -12,14 +12,14 @@ const StayDetailsPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // Use Mongo-style _id passed in route as string
-  const stayId = params.id; // string | undefined
+  //Mongo-style _id passed in route as string
+  const stayId = params.id;
   const stay = stayId ? actions.getStayByID(stayId) : undefined;
 
   if (!stay) {
     return (
       <div className="container mx-auto px-4">
-        <button onClick={() => navigate(-1)} className='flex gap-2 items-center mb-3'>
+        <button onClick={() => navigate(-1)} className='flex gap-2 items-center my-3 mx-3'>
           <BiChevronLeft />
           <p>Go back to listings</p>
         </button>
@@ -32,7 +32,7 @@ const StayDetailsPage = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <button onClick={() => navigate(-1)} className='flex gap-2 items-center mb-3'>
+      <button onClick={() => navigate(-1)} className='flex gap-2 items-center my-3 mx-3'>
           <BiChevronLeft />
          <p>Go back</p>
        </button>
@@ -65,8 +65,8 @@ const StayDetailsPage = () => {
 
           <button className="caption mb-2 text-(--primary-purple) border border-(--primary-purple) rounded-xl px-2">Event available</button>
           }
-        <p className="paragraph mt-2">{stay.description}</p>
-        <button className="text-(--action) flex items-center">Expand <CgChevronDown /></button>
+        <p className="paragraph mt-2 line-clamp-7">{stay.description}</p>
+        <button className="text-(--action) flex items-center mb-4">Expand <CgChevronDown /></button>
       </div>
 
       {/* RULES */}

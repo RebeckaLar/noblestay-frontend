@@ -2,7 +2,7 @@ import { FaCheck } from "react-icons/fa6";
 import { useBooking } from "@/contexts/BookingContext";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "@/api/axios";
+import axios from "@/api/axios";
 import { IoLocationOutline } from "react-icons/io5";
 import { CgArrowRight } from "react-icons/cg";
 
@@ -20,7 +20,7 @@ const BookingConfirmedPage = () => {
         // Fetch specific booking by ID
         try {
           const token = sessionStorage.getItem('jwt');
-          const res = await api.get(`/api/bookings/${bookingId}`, {
+          const res = await axios.get(`/api/bookings/${bookingId}`, {
             headers: { authorization: `Bearer ${token}` }
           });
           console.log('Fetched booking:', res.data);

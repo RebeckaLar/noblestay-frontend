@@ -1,5 +1,5 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
 
 type LoginCredentials = {
@@ -20,41 +20,25 @@ function LoginForm({ onSuccess }: LoginFormProps) {
     formState: { errors },
   } = useForm<User>({ defaultValues: { email: "", password: ""} })
 
-  const { user, actions } = useUser()
+  const { actions } = useUser()
 
   const [formError, setFormError] = useState<string>("")
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (isSubmitted) {
-      reset({ email: "", password: "" })
-    }
-    setIsSubmitted(false)
+  const onSubmit: SubmitHandler<LoginCredentials> = async (userData: LoginCredentials) => {
     setFormError("")
-
-  }, [isSubmitted, reset])
-
-  // const onSubmit: SubmitHandler<User> = (data: User) => {
-  const onSubmit: SubmitHandler<LoginCredentials> = async (userData: LoginCredentials) => {  
-        console.log(userData.email)
-    const _user= {  email: userData.email.trim(), password: userData.password.trim()}
-  // const existingUser = _user.find((u: User) => u.email == userData.email)
-//FIX
-    // if (!existingUser) {
-    //   setFormError("Could not find account")
-    // } else {
-      // if (existingUser.password == userData.password) {
-        actions.loginUser(_user)
-        setIsSubmitted(true)
-        setLoading(false)
-        onSuccess()
-      // } else {
-      //   setFormError("Wrong password")
-      //   return
-      // }
-        return
+    setLoading(true)
+    try {
+      const _user = { email: userData.email.trim(), password: userData.password.trim() }
+      await actions.loginUser(_user)
+      reset({ email: "", password: "" })
+      onSuccess()
+    } catch (err: any) {
+      setFormError(err?.response?.data?.message || "Invalid email or password")
+    } finally {
+      setLoading(false)
     }
+  }
 
   return (
     <div className="w-full flex items-center justify-center">
@@ -77,11 +61,13 @@ function LoginForm({ onSuccess }: LoginFormProps) {
         </div>
 
         <div>
-          <input
+          <button
             type="submit"
-            value="LOG IN"
-            className='primary-btn'
-          />
+            disabled={loading}
+            className='primary-btn disabled:opacity-50'
+          >
+            {loading ? 'LOGGING IN...' : 'LOG IN'}
+          </button>
         </div>
       </form>
     </div>

@@ -9,16 +9,16 @@ const HorizontalList = ({ stays }: StayProps) => {
 const navigate = useNavigate()
 
   return (
-      <div className="mt-6">
-        <h5 className="m-3">Scandinavia</h5>
-        <div className="overflow-x-auto overflow-y-hidden space-y-10 flex gap-(--spacing-xs)">
+      <div className="mt-6 mb-10">
+        <h5 className="m-3">Europe</h5>
+        <div className="overflow-x-auto overflow-y-hidden space-y-10 flex gap-(--spacing-xs) p-1">
           {/* {stays.map((s, i) => (
             <div key={i} 
             onClick={() => navigate(`/stays/${s._id}`, {
             state: { from: "/" },
             })} 
               className="ml-3 shadow-md rounded-xl h-full pb-6"> */}
-{stays.map((s, i) => {
+          {stays.map((s, i) => {
             const hasImage = s.image && String(s.image).trim() !== '';
             
             return (
@@ -26,7 +26,7 @@ const navigate = useNavigate()
             onClick={() => navigate(`/stays/${s._id}`, {
                 state: { from: "/", flash: "Welcome to your dashboard!" },
                 })} 
-              className="ml-3 shadow-md rounded-xl h-full pb-6">
+              className="ml-3 shadow-md rounded-xl h-full pb-6 w-40 flex-shrink-0">
               {hasImage && (
                 <img 
                   src={String(s.image)} 
@@ -45,9 +45,9 @@ const navigate = useNavigate()
 {/* 
               <div className="bg-gray-300 rounded-t-xl w-40 h-28"></div> */}
               <div className="lower-half p-2">
-                <p className="paragraph">{s.title}</p>
+                <p className="paragraph truncate">{s.title}</p>
                 <div className="flex flex-col text-sm">
-                  <p className="caption text-(--grey)">{s.location}</p>
+                  <p className="caption text-(--grey) truncate">{s.location}</p>
                   <p className="body-small">{String(s.price)} kr / night</p>
                 </div>
               </div>
