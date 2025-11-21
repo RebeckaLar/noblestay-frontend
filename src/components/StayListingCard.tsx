@@ -2,16 +2,22 @@ import { useStay } from "@/contexts/StayContext"
 import { useUser } from "@/contexts/UserContext"
 import { useNavigate } from "react-router"
 
-const StayListingCard = () => {
+type StayListingCardProps = {
+  filteredStays?: Stay[]
+}
 
-    const { stays, actions } = useStay()
+const StayListingCard = ({ filteredStays }: StayListingCardProps) => {
+
+    const { stays } = useStay()
     const { currentUser } = useUser()
     const navigate = useNavigate()
-    console.log(stays)
+    
+    const displayStays = filteredStays || stays
+    console.log(displayStays)
 
   return (
-        <div className="listing-cards grid grid-cols-1 gap-10">
-          {stays.map((s, i) => {
+        <div className="listing-cards grid grid-cols-1 gap-10 mb-10">
+          {displayStays.map((s, i) => {
             const hasImage = s.image && String(s.image).trim() !== '';
             
             return (
@@ -31,7 +37,7 @@ const StayListingCard = () => {
                   }}
                 />
               )}
-              <div className={`bg-gray-300 rounded-t-xl w-full min-h-55 flex items-center justify-center text-gray-500 ${hasImage ? 'hidden' : ''}`}>
+              <div className={`bg-gray-300 rounded-t-xl w-full h-55 flex items-center justify-center text-gray-500 ${hasImage ? 'hidden' : ''}`}>
                 No image
               </div>
 

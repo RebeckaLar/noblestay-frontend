@@ -39,6 +39,9 @@ function BookingReviewPage() {
   if (!stay) {
     return <div>Stay not found</div>;
   }
+
+  const hasImage = stay.image && String(stay.image).trim() !== '';
+  
   // Derived pricing metrics
   const nights = Math.max(
     1,
@@ -53,26 +56,35 @@ function BookingReviewPage() {
   
   return (
     <>
-      <button onClick={() => navigate(-1)} className='flex gap-2 items-center mb-3 mt-6'>
+      <button onClick={() => navigate(-1)} className='flex gap-2 items-center mx-3 mb-3 mt-6'>
           <BiChevronLeft />
           <p>Go back without booking</p>
         </button>
 
       <div className="container mx-auto px-4">
-
-        
-        {/* <div className="mt-6 space-y-4"> */}
           {/* Stay Details */}
           <div className="p-4">
             <div>
-            <h4>Booking Summary</h4>
-            <div className=" bg-gray-300 h-58 rounded-xl">Image</div>
-            <h6>{stay.title}</h6>
-            <div className="flex gap-1">
-              <IoLocationOutline />
-              <p className="caption">{stay.location}</p>
+            <h4 className="mb-3">Booking Summary</h4>
+            {hasImage ? (
+              <img 
+                src={String(stay.image)} 
+                alt={String(stay.title)}
+                className="w-full h-58 rounded-xl object-cover"
+              />
+            ) : (
+              <div className="bg-gray-300 h-58 rounded-xl flex items-center justify-center text-gray-500">
+                No image available
+              </div>
+            )}
+            <div className="my-4 flex flex-col gap-1">
+              <h6>{stay.title}</h6>
+              <div className="flex gap-1">
+                <IoLocationOutline />
+                <p className="caption">{stay.location}</p>
+              </div>
             </div>
-            <p className="caption text-(--grey)">{stay.rules}</p>
+            {/* <p className="caption text-(--grey)">{stay.rules}</p> */}
           </div>
           
           <hr className="solid text-(--grey)"></hr>
@@ -156,7 +168,7 @@ function BookingReviewPage() {
           { currentUser &&
           <div className="flex flex-col items-center gap-2 mt-6">
             {bookingError && <p className="text-(--error) text-sm">{bookingError}</p>}
-            <Button disabled={bookingLoading} className="action-btn my-4" onClick={async () => {
+            <Button disabled={bookingLoading} className="action-btn my-4 mb-10" onClick={async () => {
               const bookingId = await createBooking();
               if (bookingId) {
                 clearBooking();
@@ -165,7 +177,6 @@ function BookingReviewPage() {
             }}>
               {bookingLoading ? 'CONFIRMING...' : 'CONFIRM BOOKING'}
             </Button>
-            <p className="caption text-(--grey)">You will receive a confirmation email shortly.</p>
           </div>
           }
         </div>

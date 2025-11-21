@@ -40,7 +40,6 @@ function Header() {
                         currentUser == null 
                         ? 'Log in / Sign up'
                         : 'Welcome back'
-                        // : <NavLink to="/profile">{"Welcome back, " + (currentUser.phone || "Guest")}</NavLink>
                         }</p>
                     </li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/">Home</NavLink></li>
@@ -68,9 +67,7 @@ function Header() {
                         <p>{
                         currentUser == null 
                         ? 'Log in / Sign up' 
-                        // : currentUser.phone}</p>
-                        // : <NavLink to="/profile">{currentUser.phone || "Guest"}</NavLink>
-                        : 'Welcome back'
+                        : <LogOutBtn />
                         }</p>
                     </li>
                 </ul>

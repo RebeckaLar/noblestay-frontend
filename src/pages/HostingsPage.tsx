@@ -3,8 +3,6 @@ import { useStay } from "@/contexts/StayContext"
 import { useUser } from "@/contexts/UserContext"
 import { useNavigate } from "react-router"
 
-
-
 const HostingPage = () => {
 
   const { user } = useUser()
@@ -23,9 +21,9 @@ const HostingPage = () => {
     )
   }
 
-  // Filter stays where the owner matches the current user
+  //filter stays where owner matches the current user
   const userHostings = stays.filter((stay) => {
-    // Handle both populated owner object and owner ID string
+    //Handle both populated owner object and owner ID string
     const ownerId = typeof stay.owner === 'string' ? stay.owner : stay.owner?._id
     return ownerId === user._id
   })

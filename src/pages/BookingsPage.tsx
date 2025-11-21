@@ -44,13 +44,10 @@ const BookingsPage = () => {
             const stayLocation = stay?.location ? String(stay.location) : '';
             const stayDescription = stay?.description ? String(stay.description) : '';
             const room = typeof b.room === 'object' ? (b.room as Room) : null;
-            const roomPrice = room?.price ? String(room.price) : '';
+            const roomPrice = room?.price ? String(room.price) : 'N/A';
             
             return (
             <div key={i}
-              // onClick={() => navigate(`/bookings/${b._id}`, {
-              //   state: { from: "/bookings" },
-              // })}
               className="shadow-md rounded-xl pb-6 flex flex-col cursor-pointer">
               {hasImage && stay?.image && (
                 <img 

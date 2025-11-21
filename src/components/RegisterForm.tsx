@@ -1,11 +1,11 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useUser } from '../contexts/UserContext'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type RegisterCredentials = {
-  phone: User['phone'],
-  email: User['email'],
-  password: User['password'],
+  phone: User['phone']
+  email: User['email']
+  password: User['password']
   confirmPassword: string
 }
 
@@ -21,31 +21,27 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
     formState: { errors },
   } = useForm<RegisterCredentials>({ defaultValues: { phone: undefined, email: "", password: "", confirmPassword: "" } }) //the input-fields
 
-  const { user, actions } = useUser()
+  const { actions } = useUser()
   const [formError, setFormError] = useState<string>("")
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (isSubmitted) {
-      reset({ phone: undefined, email: "", password: "" })
-    }
-    setIsSubmitted(false)
-    setFormError("")
-  }, [isSubmitted, reset])
-
-    const onSubmit: SubmitHandler<RegisterCredentials> = async (userData: RegisterCredentials) => {
-      setFormError("");
+    const onSubmit: SubmitHandler<RegisterCredentials> = async (userData) => {
+      setFormError("")
       if (userData.password !== userData.confirmPassword) {
-        setFormError("Passwords do not match");
-        return;
+        setFormError("Passwords do not match")
+        return
       }
-      const _user = { phone: userData.phone, email: userData.email.trim(), password: userData.password.trim() };
-      actions.createUser(_user);
-      setIsSubmitted(true);
-      setLoading(false);
-      onSuccess();
-      return;
+      setLoading(true)
+      try {
+        const _user = { phone: userData.phone, email: userData.email.trim(), password: userData.password.trim() }
+        await actions.createUser(_user)
+        reset({ phone: undefined, email: "", password: "", confirmPassword: "" })
+        onSuccess()
+      } catch (err) {
+        setFormError("Registration failed. Please try again.")
+      } finally {
+        setLoading(false)
+      }
     }
 
   return (
@@ -79,11 +75,13 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
           {formError && <p className="text-red-500 text-sm italic mb-3">{formError}</p>}
         </div>
         <div>
-          <input
+          <button
             type="submit"
-            value="SIGN UP"
-            className='primary-btn'
-          />
+            disabled={loading}
+            className='primary-btn disabled:opacity-50'
+          >
+            {loading ? 'SIGNING UP...' : 'SIGN UP'}
+          </button>
         </div>
       </form>
     </div>
