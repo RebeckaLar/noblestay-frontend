@@ -16,7 +16,7 @@ type BookingContextType = {
   bookingData: BookingData | null;
   setBookingData: (data: BookingData) => void;
   clearBooking: () => void;
-  createBooking: () => Promise<boolean>; // returns success flag
+  createBooking: () => Promise<string | null>; // returns booking ID or null
   bookingLoading: boolean;
   bookingError: string | null;
   userBookings: Booking[];
@@ -36,7 +36,7 @@ export function BookingProvider({ children }: PropsWithChildren) {
   const createBooking: BookingContextType['createBooking'] = async () => {
     if (!bookingData) {
       setBookingError('No booking data to submit');
-      return false;
+      return null;
     }
     setBookingLoading(true);
     setBookingError(null);
@@ -44,7 +44,7 @@ export function BookingProvider({ children }: PropsWithChildren) {
       const token = sessionStorage.getItem('jwt');
       if (!token) {
         setBookingError('You must be logged in to confirm booking');
-        return false;
+        return null;
       }
       // Build payload expected by backend
       const payload = {
@@ -63,13 +63,14 @@ export function BookingProvider({ children }: PropsWithChildren) {
       });
 
       if (res.status === 201 || res.status === 200) {
-        return true;
+        // Return the booking ID from the response
+        return res.data._id || null;
       }
       setBookingError('Unexpected response from server');
-      return false;
+      return null;
     } catch (err: any) { //FIX
       setBookingError(err?.response?.data?.message || 'Failed to create booking');
-      return false;
+      return null;
     } finally {
       setBookingLoading(false);
     }

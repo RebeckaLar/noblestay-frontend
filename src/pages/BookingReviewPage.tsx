@@ -157,11 +157,10 @@ function BookingReviewPage() {
           <div className="flex flex-col items-center gap-2 mt-6">
             {bookingError && <p className="text-(--error) text-sm">{bookingError}</p>}
             <Button disabled={bookingLoading} className="action-btn my-4" onClick={async () => {
-              const ok = await createBooking();
-              if (ok) {
+              const bookingId = await createBooking();
+              if (bookingId) {
                 clearBooking();
-                alert('Booking confirmed!');
-                navigate('/');
+                navigate(`/bookingconfirmed/${bookingId}`);
               }
             }}>
               {bookingLoading ? 'CONFIRMING...' : 'CONFIRM BOOKING'}

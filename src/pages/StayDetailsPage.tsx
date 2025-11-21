@@ -75,11 +75,9 @@ const StayDetailsPage = () => {
       <hr className="solid text-(--grey)"></hr>
 
       {/* OWNER */}
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <div>
           <h6 className="h6-brown">Meet the castle owner</h6>
-          {/* <p className="body-small">{stay.owner.userName}</p> FIX */} 
-          {/* FIX */}
         </div>
         <div className="flex flex-col items-center">
           <div className="rounded-full w-15 h-15 bg-gray-300"></div>
@@ -93,7 +91,7 @@ const StayDetailsPage = () => {
         </div>
       </div>
 
-      <hr className="solid text-(--grey)"></hr>
+      <hr className="solid text-(--grey)"></hr> */}
       
       {/* SELECTIONS */}
       <div>

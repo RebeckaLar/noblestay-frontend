@@ -15,10 +15,6 @@ const BookingsPage = () => {
     }
   }, [user])
 
-  // For debugging
-  console.log('BookingsPage - user:', user)
-  console.log('BookingsPage - bookings:', userBookings)
-
   if (!user) {
     return (
       <div className="container mx-auto px-4 mt-6">

@@ -20,6 +20,7 @@ import Profile from './pages/Profile'
 import HostingPage from './pages/HostingsPage'
 import BookingsPage from './pages/BookingsPage'
 import AuthLayout from './layouts/AuthLayout'
+import BookingConfirmedPage from './pages/BookingConfirmedPage'
 
 Modal.setAppElement('#root')
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: '/bookings',
             element: <BookingsPage />
+          },
+          {
+            path: '/bookingconfirmed/:id',
+            element: <BookingConfirmedPage />
           }
         ]
       },
