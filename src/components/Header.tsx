@@ -36,10 +36,12 @@ function Header() {
                         <div className="rounded-full w-15 h-15 bg-gray-300">
                             <CgProfile className="h-full w-full" />
                         </div>
-                        <p>{currentUser == null 
+                        <p>{
+                        currentUser == null 
                         ? 'Log in / Sign up'
-                        // : currentUser.userName}</p>
-                        : <NavLink to="/profile">{"Welcome back, " + (currentUser.userName || "Guest")}</NavLink>}</p>
+                        : 'Welcome back'
+                        // : <NavLink to="/profile">{"Welcome back, " + (currentUser.phone || "Guest")}</NavLink>
+                        }</p>
                     </li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/">Home</NavLink></li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/stays">All castles</NavLink></li>
@@ -66,8 +68,9 @@ function Header() {
                         <p>{
                         currentUser == null 
                         ? 'Log in / Sign up' 
-                        // : currentUser.userName}</p>
-                        : <NavLink to="/profile">{currentUser.userName || "Guest"}</NavLink>
+                        // : currentUser.phone}</p>
+                        // : <NavLink to="/profile">{currentUser.phone || "Guest"}</NavLink>
+                        : 'Welcome back'
                         }</p>
                     </li>
                 </ul>

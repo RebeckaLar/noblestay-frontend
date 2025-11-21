@@ -28,7 +28,7 @@ type Booking = {
 }
 
 type User = {
-    userName: String,
+    phone: String,
     email: String;
     password: String; //never save in plain text! encryption required¨
     _id: String;

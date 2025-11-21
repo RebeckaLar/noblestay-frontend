@@ -13,7 +13,7 @@ type UserState = {
 }
 
 type RegisterCredentials = {
-  userName: User['userName'],
+  phone: User['phone'],
   email: User['email'],
   password: User['password']
 }
@@ -94,7 +94,7 @@ function UserProvider ({ children }: PropsWithChildren) {
         setToken(res.data.token)
         setUser({
                 _id: res.data._id,
-                // userName: res.data.userName,
+                // phone: res.data.phone,
                 // email: res.data.email,
         })
 
@@ -108,7 +108,7 @@ function UserProvider ({ children }: PropsWithChildren) {
         setToken(res.data.token)
         setUser({
                 _id: res.data._id,
-                // userName: res.data.userName,
+                // phone: res.data.phone,
                 // email: res.data.email,
         })
         setCurrentUser(res.data._id)
