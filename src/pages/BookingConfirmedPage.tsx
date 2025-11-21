@@ -87,7 +87,7 @@ const BookingConfirmedPage = () => {
 
           {/* Booking details: DATE */}
             <div className="p-3">
-            <h6 className="">Date:</h6>
+            <h6 className=" text-(--very-dark-brown)">Date:</h6>
             <div className="flex gap-2 items-center">
               <p className="body-small">{checkInDate}</p>
               <CgArrowRight className="text-(--grey)" />

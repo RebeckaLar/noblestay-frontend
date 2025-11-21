@@ -109,7 +109,7 @@ h6 {
     color: var(--very-dark-brown);
 }
 
-p, button, .paragraph, .nav-links {
+p, button, .paragraph, .nav-links, .body-small, .caption {
     font-family: Poppins, Arial, Helvetica, sans-serif;
 }
 

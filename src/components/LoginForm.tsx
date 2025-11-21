@@ -57,17 +57,17 @@ function LoginForm({ onSuccess }: LoginFormProps) {
     }
 
   return (
-    <div className="w-full max-w-xs">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
-
-        <div className="mb-4">
-          <label className="block mb-2" >Email: </label>
+    <div className="w-full flex items-center justify-center">
+      <form className="bg-white mx-10 pt-6 mb-4 flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
+        <h5>Welcome back</h5>
+        <div className="my-4">
+          <label className="body-small block mb-2" >Email: </label>
           <input className='border' id="email" {...register("email", { required: true })} />
           {errors.email && errors.email.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a valid email</p>}
         </div>
 
         <div className="mb-6">
-          <label className="block mb-2">password: </label>
+          <label className="body-small block mb-2">Password: </label>
           <input type='password' className='border' id='password' {...register("password", { required: true })} />
           {errors.password && errors.password.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide the password</p>}
         </div>
@@ -79,8 +79,8 @@ function LoginForm({ onSuccess }: LoginFormProps) {
         <div>
           <input
             type="submit"
-            value="Log in"
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            value="LOG IN"
+            className='primary-btn'
           />
         </div>
       </form>

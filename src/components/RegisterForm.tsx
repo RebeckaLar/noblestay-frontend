@@ -33,47 +33,35 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
     setFormError("")
   }, [isSubmitted, reset])
 
-  // const onSubmit: SubmitHandler<User> = async (data: User) => {
     const onSubmit: SubmitHandler<RegisterCredentials> = async (userData: RegisterCredentials) => {
     console.log(userData)
     const _user= { userName: userData.userName, email: userData.email.trim(), password: userData.password.trim()}
-    // const existingUser = user?.id === _user._id ? user : undefined
 
-
-        
-    // if (!existingUser) {
-    //   actions.createUser(_user)
-    //   actions.setUser(_user)
       actions.createUser(_user)
       setIsSubmitted(true)
       setLoading(false)
       onSuccess()
-    // } else {
-    //   setFormError("Username already taken")
-    //   return
-    // }
-
     return
   }
 
   return (
-    <div className="w-full max-w-xs">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
-
-        <div className="mb-4">
-          <label className="block mb-2" >First and last name: </label>
+    <div className="w-full flex items-center justify-center">
+      <form className="bg-white mx-7 pt-6 mb-4 flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
+      <h5>Sign up to Noble Stay</h5>
+        <div className="m-4">
+          <label className="body-small block mb-2" >First and last name: </label>
           <input className='border' id='userName' {...register("userName", { required: true })} />
           {errors.userName && errors.userName.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a username</p>}
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2" >Email: </label>
+          <label className="body-small block mb-2" >Email: </label>
           <input type="email" className='border' id='email' {...register("email", { required: true })} />
           {errors.email && errors.email.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a valid email</p>}
         </div>
 
         <div className="mb-6">
-          <label className="block mb-2">Password: </label>
+          <label className="body-small block mb-2">Password: </label>
           <input type='password' className='border' id='password' {...register("password", { required: true })} />
           {errors.password && errors.password.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a password</p>}
         </div>
@@ -85,8 +73,8 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
         <div>
           <input
             type="submit"
-            value="Create account"
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            value="SIGN UP"
+            className='primary-btn'
           />
         </div>
       </form>

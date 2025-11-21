@@ -39,7 +39,7 @@ function Header() {
                         <p>{currentUser == null 
                         ? 'Log in / Sign up'
                         // : currentUser.userName}</p>
-                        : <NavLink to="/profile">{"Welcome back, " + (currentUser.userName || "Guest")}</NavLink>}</p>
+                        : <NavLink to="/profile">Welcome back</NavLink>}</p>
                     </li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/">Home</NavLink></li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/stays">All castles</NavLink></li>
@@ -86,22 +86,22 @@ function Header() {
 
         <Modal isOpen={showLogin}
           onRequestClose={() => setshowLogin(false)}
-          className='bg-white p-6 rounded shadow-lg max-w-md mx-auto mt-20 realtive'
+          className='bg-white rounded-lg shadow-lg max-w-md mx-auto mt-20 relative flex flex-col items-center py-5 px-3'
           overlayClassName='fixed inset-0 bg-black/20 flex justify-center items-start z-50'>
-          <button className="absolute top-2 right-2 text-gray-600">X</button>
+          <button className="absolute top-2 right-2">X</button>
           <LoginForm onSuccess={() => setshowLogin(false)} />
-          <p className="text-sm my-4">Don't have an account? {''}
+          <p className="body-small my-4">Don't have an account? {''}
             <button className="text-(--action) underline text-sm" onClick={() => { setshowLogin(false); setshowRegister(true) }}>SIGN UP</button>
           </p>
         </Modal>
 
         <Modal isOpen={showRegister}
           onRequestClose={() => setshowRegister(false)}
-          className='bg-white p-6 rounded shadow-lg max-w-md mx-auto mt-20 realtive'
+          className='bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto mt-20 relative flex flex-col items-center py-5 px-3'
           overlayClassName='fixed inset-0 bg-black/20 flex justify-center items-start z-50'>
-          <button className="absolute top-2 right-2 text-gray-600">X</button>
+          <button className="absolute top-2 right-2">X</button>
           <RegisterForm onSuccess={() => setshowRegister(false)} />
-          <p className="text-sm my-4">Already have an account? {''}
+          <p className="body-small my-4">Already have an account? {''}
             <button className="text-(--action) underline text-sm" onClick={() => { setshowLogin(true); setshowRegister(false) }}>LOG IN</button>
           </p>
 
