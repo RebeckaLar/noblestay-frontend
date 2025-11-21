@@ -8,8 +8,8 @@ Project aim is to use our knowledge from earlier courses to build the frontend p
 ## Installation
 ### Clone this repository
 ```
-git clone https://github.com/RebeckaLar/noblestay-backend.git
-cd noblestay-backend
+git clone https://github.com/RebeckaLar/noblestay-frontend.git
+cd noblestay-frontend
 ```
 
 # React + TypeScript + Vite
