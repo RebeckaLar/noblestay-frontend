@@ -39,7 +39,7 @@ function Header() {
                         <p>{currentUser == null 
                         ? 'Log in / Sign up'
                         // : currentUser.userName}</p>
-                        : <NavLink to="/profile">Welcome back</NavLink>}</p>
+                        : <NavLink to="/profile">{"Welcome back, " + (currentUser.userName || "Guest")}</NavLink>}</p>
                     </li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/">Home</NavLink></li>
                     <li><NavLink className="menu__item [&.active]:text-(--primary-purple)" to="/stays">All castles</NavLink></li>

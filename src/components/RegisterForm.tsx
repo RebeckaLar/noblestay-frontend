@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react'
 type RegisterCredentials = {
   userName: User['userName'],
   email: User['email'],
-  password: User['password']
+  password: User['password'],
+  confirmPassword: string
 }
 
 type RegisterFormProps = {
@@ -18,7 +19,7 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<User>({ defaultValues: { userName: "", email: "", password: "" } }) //the input-fields
+  } = useForm<RegisterCredentials>({ defaultValues: { userName: "", email: "", password: "", confirmPassword: "" } }) //the input-fields
 
   const { user, actions } = useUser()
   const [formError, setFormError] = useState<string>("")
@@ -34,15 +35,18 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
   }, [isSubmitted, reset])
 
     const onSubmit: SubmitHandler<RegisterCredentials> = async (userData: RegisterCredentials) => {
-    console.log(userData)
-    const _user= { userName: userData.userName, email: userData.email.trim(), password: userData.password.trim()}
-
-      actions.createUser(_user)
-      setIsSubmitted(true)
-      setLoading(false)
-      onSuccess()
-    return
-  }
+      setFormError("");
+      if (userData.password !== userData.confirmPassword) {
+        setFormError("Passwords do not match");
+        return;
+      }
+      const _user = { userName: userData.userName, email: userData.email.trim(), password: userData.password.trim() };
+      actions.createUser(_user);
+      setIsSubmitted(true);
+      setLoading(false);
+      onSuccess();
+      return;
+    }
 
   return (
     <div className="w-full flex items-center justify-center">
@@ -65,11 +69,14 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
           <input type='password' className='border' id='password' {...register("password", { required: true })} />
           {errors.password && errors.password.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please provide a password</p>}
         </div>
-
+        <div className="mb-6">
+          <label className="body-small block mb-2">Confirm Password: </label>
+          <input type='password' className='border' id='confirmPassword' {...register("confirmPassword", { required: true })} />
+          {errors.confirmPassword && errors.confirmPassword.type === "required" && <p className="text-red-500 text-xs italic mt-1">Please confirm your password</p>}
+        </div>
         <div>
           {formError && <p className="text-red-500 text-sm italic mb-3">{formError}</p>}
         </div>
-
         <div>
           <input
             type="submit"
